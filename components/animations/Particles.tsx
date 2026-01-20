@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { memo, useEffect, useRef } from 'react'
 import { useReducedMotion } from 'framer-motion'
 
 interface ParticlesProps {
@@ -24,7 +24,7 @@ interface Particle {
   targetAlpha: number
 }
 
-export function Particles({
+export const Particles = memo(function Particles({
   particleCount = 60,
   particleColors = ['#22d3ee', '#67e8f9', '#a5f3fc', '#cffafe'],
   speed = 0.05,
@@ -185,4 +185,4 @@ export function Particles({
       style={{ width: '100%', height: '100%' }}
     />
   )
-}
+})

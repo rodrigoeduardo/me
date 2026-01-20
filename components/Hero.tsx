@@ -5,6 +5,8 @@ import { useState } from 'react'
 import { useLanguage } from '@/lib/i18n'
 import { BlurText, ShinyText, Particles } from '@/components/animations'
 
+const PARTICLE_COLORS: string[] = ['#22d3ee', '#67e8f9', '#a5f3fc', '#0e7490']
+
 export function Hero() {
   const { t } = useLanguage()
   const [animationStep, setAnimationStep] = useState(0)
@@ -14,8 +16,9 @@ export function Hero() {
       {/* Particles background */}
       <div className="absolute inset-0 -z-10">
         <Particles
+          key="particles-bg"
           particleCount={60}
-          particleColors={['#22d3ee', '#67e8f9', '#a5f3fc', '#0e7490']}
+          particleColors={PARTICLE_COLORS}
           speed={0.03}
           particleSize={2}
           moveParticlesOnHover
