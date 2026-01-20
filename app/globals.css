@@ -46,3 +46,17 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   opacity: 0.4;
 }
+
+/* Shine animation for ShinyText */
+@keyframes shine {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
+.animate-shine {
+  animation: shine linear infinite;
+}
