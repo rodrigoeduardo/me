@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { useState } from 'react'
+import { useReducedMotion } from 'framer-motion'
 import { useLanguage } from '@/lib/i18n'
 import { BlurText, ShinyText, Particles } from '@/components/animations'
 
@@ -10,6 +11,7 @@ const PARTICLE_COLORS: string[] = ['#22d3ee', '#67e8f9', '#a5f3fc', '#0e7490']
 export function Hero() {
   const { t } = useLanguage()
   const [animationStep, setAnimationStep] = useState(0)
+  const prefersReducedMotion = useReducedMotion()
 
   return (
     <section className="min-h-[80vh] flex items-center py-24 relative overflow-hidden">
@@ -105,7 +107,13 @@ export function Hero() {
                 : 'opacity-0 scale-95'
             }`}
           >
-            <div className="absolute inset-0 bg-highlight/20 rounded-full blur-3xl" />
+            <div
+              className={`absolute inset-0 bg-highlight/20 rounded-full transition-all duration-700 ease-out ${
+                animationStep >= 1
+                  ? `opacity-100 blur-3xl scale-125 ${prefersReducedMotion ? '' : 'animate-glow-pulse'}`
+                  : 'opacity-0 blur-0 scale-90'
+              }`}
+            />
             <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-foreground/10">
               <Image
                 src="https://github.com/rodrigoeduardo.png"

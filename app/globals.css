@@ -60,3 +60,26 @@ body {
 .animate-shine {
   animation: shine linear infinite;
 }
+
+/* Breathing glow behind profile photo */
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1.25);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.4);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 4s ease-in-out 700ms infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-glow-pulse {
+    animation: none;
+  }
+}
