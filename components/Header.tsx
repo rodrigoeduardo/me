@@ -30,7 +30,7 @@ const LinkedInIcon = () => (
 )
 
 export function Header() {
-  const { t, locale } = useLanguage()
+  const { t } = useLanguage()
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
@@ -39,7 +39,8 @@ export function Header() {
           href="/"
           className="font-semibold text-lg tracking-tight hover:text-highlight transition-colors"
         >
-          Rodrigo Eduardo
+          <span className="sm:hidden">Rod</span>
+          <span className="hidden sm:inline">Rodrigo Eduardo</span>
         </Link>
 
         <nav className="flex items-center gap-6">
