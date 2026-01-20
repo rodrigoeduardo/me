@@ -31,7 +31,9 @@ const LinkedInIcon = () => (
 )
 
 export function Header() {
-  const { t } = useLanguage()
+  const { t, locale } = useLanguage()
+
+  const resumeUrl = locale === 'pt-BR' ? '/rodrigoeduardo-cv-pt.pdf' : '/rodrigoeduardo-cv-en.pdf'
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-foreground/5">
@@ -64,7 +66,7 @@ export function Header() {
           </Link>
 
           <a
-            href="/resume.pdf"
+            href={resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-sm font-medium text-foreground/70 hover:text-foreground transition-colors"
