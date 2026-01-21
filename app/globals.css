@@ -1,11 +1,11 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 :root {
   --background: #f1faff;
   --foreground: #1e201f;
   --highlight: #22d3ee;
-  --font-primary: "Space Grotesk", "Helvetica Neue", Arial, sans-serif;
-  --font-secondary: "IBM Plex Mono", "SFMono-Regular", Menlo, monospace;
+  --font-primary: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-secondary: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
 }
 
 .dark {

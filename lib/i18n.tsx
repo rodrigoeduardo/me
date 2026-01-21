@@ -1,6 +1,12 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, type ReactNode } from 'react'
+import {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  type ReactNode
+} from 'react'
 
 export type Locale = 'en' | 'pt-BR'
 
@@ -17,7 +23,7 @@ const translations = {
     'posts.empty': 'No posts yet.',
     'posts.readMore': 'Read more',
     'posts.categories': 'Categories',
-    'posts.all': 'All',
+    'posts.all': 'All'
   },
   'pt-BR': {
     'nav.posts': 'Posts',
@@ -31,8 +37,8 @@ const translations = {
     'posts.empty': 'Nenhum post ainda.',
     'posts.readMore': 'Leia mais',
     'posts.categories': 'Categorias',
-    'posts.all': 'Todos',
-  },
+    'posts.all': 'Todos'
+  }
 } as const
 
 type TranslationKey = keyof typeof translations.en
@@ -84,7 +90,7 @@ export function useLanguage() {
     return {
       locale: 'en' as Locale,
       setLocale: () => {},
-      t: (key: TranslationKey) => translations.en[key] || key,
+      t: (key: TranslationKey) => translations.en[key] || key
     }
   }
   return context

@@ -5,18 +5,22 @@ import { SiteWrapper } from './SiteWrapper'
 const primaryFont = Space_Grotesk({
   variable: '--font-primary',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700']
 })
 
 const secondaryFont = IBM_Plex_Mono({
   variable: '--font-secondary',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  weight: ['400', '500', '600', '700']
 })
 
-export default function SiteLayout({ children }: { children: React.ReactNode }) {
+export default function SiteLayout({
+  children
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang='en' suppressHydrationWarning>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -30,7 +34,7 @@ export default function SiteLayout({ children }: { children: React.ReactNode }) 
                   }
                 } catch (e) {}
               })();
-            `,
+            `
           }}
         />
       </head>

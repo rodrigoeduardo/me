@@ -23,7 +23,7 @@ export function ShinyText({ text, speed = 3, className = '' }: ShinyTextProps) {
           'linear-gradient(90deg, currentColor 0%, currentColor 40%, var(--highlight) 50%, currentColor 60%, currentColor 100%)',
         animationDuration: `${speed}s`,
         WebkitBackgroundClip: 'text',
-        color: 'var(--highlight)',
+        color: 'var(--highlight)'
       }}
     >
       {text}

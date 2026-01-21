@@ -8,12 +8,12 @@ export const metadata: Metadata = {
     title: 'Rodrigo Eduardo | Software Engineer',
     description:
       'Front-end and full-stack developer passionate about building elegant, performant web experiences.',
-    type: 'website',
-  },
+    type: 'website'
+  }
 }
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode
 }>) {

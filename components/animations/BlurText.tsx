@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useLayoutEffect, useState } from 'react'
 import { motion, useInView, useReducedMotion, Variants } from 'framer-motion'
 
 interface BlurTextProps {
@@ -18,12 +18,17 @@ export function BlurText({
   animateBy = 'words',
   direction = 'bottom',
   className = '',
-  onAnimationComplete,
+  onAnimationComplete
 }: BlurTextProps) {
   const ref = useRef<HTMLSpanElement>(null)
   const isInView = useInView(ref, { once: true, amount: 0.5 })
   const prefersReducedMotion = useReducedMotion()
   const [completedCount, setCompletedCount] = useState(0)
+  const onCompleteRef = useRef(onAnimationComplete)
+
+  useLayoutEffect(() => {
+    onCompleteRef.current = onAnimationComplete
+  }, [onAnimationComplete])
 
   const elements = animateBy === 'words' ? text.split(' ') : text.split('')
 
@@ -46,7 +51,7 @@ export function BlurText({
     hidden: {
       opacity: 0,
       filter: 'blur(10px)',
-      ...getDirectionOffset(),
+      ...getDirectionOffset()
     },
     visible: (i: number) => ({
       opacity: 1,
@@ -56,16 +61,16 @@ export function BlurText({
       transition: {
         duration: 0.5,
         delay: i * (delay / 1000),
-        ease: [0.25, 0.1, 0.25, 1],
-      },
-    }),
+        ease: [0.25, 0.1, 0.25, 1]
+      }
+    })
   }
 
   useEffect(() => {
-    if (completedCount === elements.length && onAnimationComplete) {
-      onAnimationComplete()
+    if (completedCount === elements.length && onCompleteRef.current) {
+      onCompleteRef.current()
     }
-  }, [completedCount, elements.length, onAnimationComplete])
+  }, [completedCount, elements.length])
 
   if (prefersReducedMotion) {
     return <span className={className}>{text}</span>
@@ -78,7 +83,7 @@ export function BlurText({
           key={`${element}-${i}`}
           custom={i}
           variants={variants}
-          initial="hidden"
+          initial='hidden'
           animate={isInView ? 'visible' : 'hidden'}
           onAnimationComplete={() => {
             if (i === elements.length - 1) {

@@ -17,8 +17,8 @@ export default buildConfig({
 
   db: sqliteAdapter({
     client: {
-      url: process.env.DATABASE_URL || 'file:./payload.db',
-    },
+      url: process.env.DATABASE_URL || 'file:./payload.db'
+    }
   }),
 
   collections: [Posts, Categories, Media, Users],
@@ -26,17 +26,17 @@ export default buildConfig({
   admin: {
     user: Users.slug,
     importMap: {
-      baseDir: path.resolve(dirname),
+      baseDir: path.resolve(dirname)
     },
     meta: {
       title: 'Rodrigo Eduardo - Admin',
-      description: 'Content management for rodrigoeduardo.com',
-    },
+      description: 'Content management for rodrigoeduardo.com'
+    }
   },
 
   editor: lexicalEditor({}),
 
   typescript: {
-    outputFile: path.resolve(dirname, 'payload-types.ts'),
-  },
+    outputFile: path.resolve(dirname, 'payload-types.ts')
+  }
 })

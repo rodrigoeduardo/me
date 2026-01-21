@@ -4,28 +4,28 @@ export const Users: CollectionConfig = {
   slug: 'users',
   auth: true,
   admin: {
-    useAsTitle: 'email',
+    useAsTitle: 'email'
   },
   access: {
     read: () => true,
     create: ({ req }) => !!req.user,
     update: ({ req }) => !!req.user,
-    delete: ({ req }) => !!req.user,
+    delete: ({ req }) => !!req.user
   },
   fields: [
     {
       name: 'name',
-      type: 'text',
+      type: 'text'
     },
     {
       name: 'role',
       type: 'select',
       options: [
         { label: 'Admin', value: 'admin' },
-        { label: 'Editor', value: 'editor' },
+        { label: 'Editor', value: 'editor' }
       ],
       defaultValue: 'editor',
-      required: true,
-    },
-  ],
+      required: true
+    }
+  ]
 }

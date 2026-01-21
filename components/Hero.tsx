@@ -4,7 +4,14 @@ import Image from 'next/image'
 import { useState } from 'react'
 import { useReducedMotion } from 'framer-motion'
 import { useLanguage } from '@/lib/i18n'
-import { BlurText, ShinyText, Particles } from '@/components/animations'
+import dynamic from 'next/dynamic'
+import { BlurText } from '@/components/animations/BlurText'
+import { ShinyText } from '@/components/animations/ShinyText'
+
+const Particles = dynamic(
+  () => import('@/components/animations/Particles').then(m => m.Particles),
+  { ssr: false }
+)
 
 const PARTICLE_COLORS: string[] = ['#22d3ee', '#67e8f9', '#a5f3fc', '#0e7490']
 
@@ -14,11 +21,11 @@ export function Hero() {
   const prefersReducedMotion = useReducedMotion()
 
   return (
-    <section className="min-h-[80vh] flex items-center py-24 relative overflow-hidden">
+    <section className='min-h-[80vh] flex items-center py-24 relative overflow-hidden'>
       {/* Particles background */}
-      <div className="absolute inset-0 -z-10">
+      <div className='absolute inset-0 -z-10'>
         <Particles
-          key="particles-bg"
+          key='particles-bg'
           particleCount={60}
           particleColors={PARTICLE_COLORS}
           speed={0.03}
@@ -28,24 +35,24 @@ export function Hero() {
         />
       </div>
 
-      <div className="max-w-5xl mx-auto px-6 w-full">
-        <div className="flex flex-col sm:flex-row gap-8 sm:gap-12 md:gap-16 items-center sm:justify-between">
-          <div className="space-y-6 flex-1 max-w-xl">
-            <div className="space-y-2">
+      <div className='max-w-5xl mx-auto px-6 w-full'>
+        <div className='flex flex-col sm:flex-row gap-8 sm:gap-12 md:gap-16 items-center sm:justify-between'>
+          <div className='space-y-6 flex-1 max-w-xl'>
+            <div className='space-y-2'>
               {/* Greeting with shimmer effect */}
               <ShinyText
                 text={t('hero.greeting')}
                 speed={3}
-                className="text-sm font-mono tracking-wider uppercase block"
+                className='text-sm font-mono tracking-wider uppercase block'
               />
 
               {/* Name with blur entrance */}
               <h1>
                 <BlurText
-                  text="Rodrigo Eduardo"
+                  text='Rodrigo Eduardo'
                   delay={150}
-                  animateBy="words"
-                  className="text-5xl md:text-6xl font-bold tracking-tight"
+                  animateBy='words'
+                  className='text-5xl md:text-6xl font-bold tracking-tight'
                   onAnimationComplete={() => setAnimationStep(1)}
                 />
               </h1>
@@ -59,8 +66,8 @@ export function Hero() {
                 <BlurText
                   text={t('hero.role')}
                   delay={100}
-                  animateBy="words"
-                  className="text-xl text-foreground/60 font-medium"
+                  animateBy='words'
+                  className='text-xl text-foreground/60 font-medium'
                   onAnimationComplete={() => setAnimationStep(2)}
                 />
               </div>
@@ -75,8 +82,8 @@ export function Hero() {
               <BlurText
                 text={t('hero.description')}
                 delay={30}
-                animateBy="words"
-                className="text-foreground/70 leading-relaxed text-lg"
+                animateBy='words'
+                className='text-foreground/70 leading-relaxed text-lg'
                 onAnimationComplete={() => setAnimationStep(3)}
               />
             </div>
@@ -90,11 +97,11 @@ export function Hero() {
               }`}
             >
               <a
-                href="#posts"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-highlight text-black font-medium rounded-full hover:bg-highlight/90 transition-all hover:scale-105"
+                href='#posts'
+                className='inline-flex items-center gap-2 px-6 py-3 bg-highlight text-black font-medium rounded-full hover:bg-highlight/90 transition-all hover:scale-105'
               >
                 {t('hero.cta')}
-                <span aria-hidden="true">↓</span>
+                <span aria-hidden='true'>↓</span>
               </a>
             </div>
           </div>
@@ -114,12 +121,12 @@ export function Hero() {
                   : 'opacity-0 blur-0 scale-90'
               }`}
             />
-            <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-foreground/10">
+            <div className='relative w-full h-full rounded-full overflow-hidden border-2 border-foreground/10'>
               <Image
-                src="https://github.com/rodrigoeduardo.png"
-                alt="Rodrigo Eduardo"
+                src='https://github.com/rodrigoeduardo.png'
+                alt='Rodrigo Eduardo'
                 fill
-                className="object-cover"
+                className='object-cover'
                 priority
               />
             </div>

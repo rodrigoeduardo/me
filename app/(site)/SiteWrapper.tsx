@@ -8,7 +8,7 @@ export function SiteWrapper({ children }: { children: React.ReactNode }) {
   return (
     <LanguageProvider>
       <Header />
-      <main className="pt-16 min-h-screen">{children}</main>
+      <main className='pt-16 min-h-screen'>{children}</main>
       <Footer />
     </LanguageProvider>
   )

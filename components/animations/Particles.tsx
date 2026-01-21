@@ -31,7 +31,7 @@ export const Particles = memo(function Particles({
   particleSize = 3,
   moveParticlesOnHover = true,
   alphaParticles = true,
-  className = '',
+  className = ''
 }: ParticlesProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const animationRef = useRef<number | null>(null)
@@ -64,9 +64,10 @@ export const Particles = memo(function Particles({
         vx: (Math.random() - 0.5) * speed * 2,
         vy: (Math.random() - 0.5) * speed * 2,
         size: Math.random() * particleSize + 1,
-        color: particleColors[Math.floor(Math.random() * particleColors.length)],
+        color:
+          particleColors[Math.floor(Math.random() * particleColors.length)],
         alpha: alphaParticles ? Math.random() * 0.5 + 0.2 : 1,
-        targetAlpha: alphaParticles ? Math.random() * 0.5 + 0.2 : 1,
+        targetAlpha: alphaParticles ? Math.random() * 0.5 + 0.2 : 1
       }))
     }
 
@@ -74,7 +75,7 @@ export const Particles = memo(function Particles({
       const rect = canvas.getBoundingClientRect()
       ctx.clearRect(0, 0, rect.width, rect.height)
 
-      particlesRef.current.forEach((particle) => {
+      particlesRef.current.forEach(particle => {
         // Mouse interaction
         if (moveParticlesOnHover && mouseRef.current.active) {
           const dx = mouseRef.current.x - particle.x
@@ -132,7 +133,7 @@ export const Particles = memo(function Particles({
       mouseRef.current = {
         x: e.clientX - rect.left,
         y: e.clientY - rect.top,
-        active: true,
+        active: true
       }
     }
 
@@ -144,21 +145,23 @@ export const Particles = memo(function Particles({
     initParticles()
     animate()
 
-    window.addEventListener('resize', () => {
+    const handleResize = () => {
       resizeCanvas()
       initParticles()
-    })
+    }
+
+    window.addEventListener('resize', handleResize)
 
     if (moveParticlesOnHover) {
-      canvas.addEventListener('mousemove', handleMouseMove)
-      canvas.addEventListener('mouseleave', handleMouseLeave)
+      canvas.addEventListener('mousemove', handleMouseMove, { passive: true })
+      canvas.addEventListener('mouseleave', handleMouseLeave, { passive: true })
     }
 
     return () => {
       if (animationRef.current) {
         cancelAnimationFrame(animationRef.current)
       }
-      window.removeEventListener('resize', resizeCanvas)
+      window.removeEventListener('resize', handleResize)
       if (moveParticlesOnHover) {
         canvas.removeEventListener('mousemove', handleMouseMove)
         canvas.removeEventListener('mouseleave', handleMouseLeave)
@@ -171,7 +174,7 @@ export const Particles = memo(function Particles({
     particleSize,
     moveParticlesOnHover,
     alphaParticles,
-    prefersReducedMotion,
+    prefersReducedMotion
   ])
 
   if (prefersReducedMotion) {

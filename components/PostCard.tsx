@@ -25,7 +25,7 @@ export function PostCard({
   excerpt,
   coverImage,
   category,
-  publishedAt,
+  publishedAt
 }: PostCardProps) {
   const { t } = useLanguage()
 
@@ -33,43 +33,45 @@ export function PostCard({
     ? new Date(publishedAt).toLocaleDateString('en-US', {
         year: 'numeric',
         month: 'short',
-        day: 'numeric',
+        day: 'numeric'
       })
     : null
 
   return (
-    <article className="group">
-      <Link href={`/posts/${slug}`} className="block">
+    <article className='group'>
+      <Link href={`/posts/${slug}`} className='block'>
         {coverImage && (
-          <div className="relative aspect-[16/9] mb-4 overflow-hidden rounded-lg bg-foreground/5">
+          <div className='relative aspect-video mb-4 overflow-hidden rounded-lg bg-foreground/5'>
             <Image
               src={coverImage.url}
               alt={coverImage.alt}
               fill
-              className="object-cover transition-transform duration-500 group-hover:scale-105"
+              className='object-cover transition-transform duration-500 group-hover:scale-105'
             />
           </div>
         )}
 
-        <div className="space-y-2">
-          <div className="flex items-center gap-3 text-xs font-mono text-foreground/50">
+        <div className='space-y-2'>
+          <div className='flex items-center gap-3 text-xs font-mono text-foreground/50'>
             {category && (
-              <span className="uppercase tracking-wider text-highlight">
+              <span className='uppercase tracking-wider text-highlight'>
                 {category.name}
               </span>
             )}
-            {formattedDate && <time dateTime={publishedAt!}>{formattedDate}</time>}
+            {formattedDate && (
+              <time dateTime={publishedAt!}>{formattedDate}</time>
+            )}
           </div>
 
-          <h3 className="text-lg font-semibold leading-tight group-hover:text-highlight transition-colors">
+          <h3 className='text-lg font-semibold leading-tight group-hover:text-highlight transition-colors'>
             {title}
           </h3>
 
           {excerpt && (
-            <p className="text-sm text-foreground/60 line-clamp-2">{excerpt}</p>
+            <p className='text-sm text-foreground/60 line-clamp-2'>{excerpt}</p>
           )}
 
-          <span className="inline-block text-sm font-medium text-highlight opacity-0 group-hover:opacity-100 transition-opacity">
+          <span className='inline-block text-sm font-medium text-highlight opacity-0 group-hover:opacity-100 transition-opacity'>
             {t('posts.readMore')} →
           </span>
         </div>

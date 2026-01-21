@@ -4,20 +4,20 @@ export const Posts: CollectionConfig = {
   slug: 'posts',
   admin: {
     useAsTitle: 'title',
-    defaultColumns: ['title', 'category', 'status', 'publishedAt'],
+    defaultColumns: ['title', 'category', 'status', 'publishedAt']
   },
   access: {
     read: () => true,
     create: ({ req }) => !!req.user,
     update: ({ req }) => !!req.user,
-    delete: ({ req }) => !!req.user,
+    delete: ({ req }) => !!req.user
   },
   fields: [
     {
       name: 'title',
       type: 'text',
       required: true,
-      localized: true,
+      localized: true
     },
     {
       name: 'slug',
@@ -25,42 +25,42 @@ export const Posts: CollectionConfig = {
       required: true,
       unique: true,
       admin: {
-        position: 'sidebar',
-      },
+        position: 'sidebar'
+      }
     },
     {
       name: 'excerpt',
       type: 'textarea',
-      localized: true,
+      localized: true
     },
     {
       name: 'content',
       type: 'richText',
       required: true,
-      localized: true,
+      localized: true
     },
     {
       name: 'coverImage',
       type: 'upload',
-      relationTo: 'media',
+      relationTo: 'media'
     },
     {
       name: 'category',
       type: 'relationship',
       relationTo: 'categories',
-      hasMany: false,
+      hasMany: false
     },
     {
       name: 'status',
       type: 'select',
       options: [
         { label: 'Draft', value: 'draft' },
-        { label: 'Published', value: 'published' },
+        { label: 'Published', value: 'published' }
       ],
       defaultValue: 'draft',
       admin: {
-        position: 'sidebar',
-      },
+        position: 'sidebar'
+      }
     },
     {
       name: 'publishedAt',
@@ -68,10 +68,10 @@ export const Posts: CollectionConfig = {
       admin: {
         position: 'sidebar',
         date: {
-          pickerAppearance: 'dayAndTime',
-        },
-      },
-    },
+          pickerAppearance: 'dayAndTime'
+        }
+      }
+    }
   ],
   hooks: {
     beforeChange: [
@@ -83,7 +83,7 @@ export const Posts: CollectionConfig = {
             .replace(/^-|-$/g, '')
         }
         return data
-      },
-    ],
-  },
+      }
+    ]
+  }
 }
