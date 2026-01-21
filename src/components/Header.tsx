@@ -2,11 +2,19 @@
 
 import Link from 'next/link'
 import { motion } from 'framer-motion'
-import { ThemeToggle } from './ThemeToggle'
 import { LanguageToggle } from './LanguageToggle'
 import { useLanguage } from '@/lib/i18n'
-import { GitHubIcon } from '@/public/assets/icons/GitHubIcon'
-import { LinkedInIcon } from '@/public/assets/icons/LinkedInIcon'
+import { GitHubIcon } from '@/components/icons/GitHubIcon'
+import { LinkedInIcon } from '@/components/icons/LinkedInIcon'
+import dynamic from 'next/dynamic'
+
+const ThemeToggle = dynamic(
+  () => import('@/components/ThemeToggle').then(m => m.ThemeToggle),
+  {
+    ssr: false, loading: () => <div className='w-9 h-9'>
+      <div className='w-full h-full bg-foreground/10 rounded-full animate-pulse' />
+    </div>
+  })
 
 export function Header() {
   const { t, locale } = useLanguage()
