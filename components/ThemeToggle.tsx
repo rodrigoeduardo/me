@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { ThemeAnimationType, useModeAnimation } from 'react-theme-switch-animation'
 
 const SunIcon = () => (
   <svg
@@ -43,36 +43,18 @@ const MoonIcon = () => (
 )
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<'light' | 'dark'>('light')
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-    const stored = localStorage.getItem('theme') as 'light' | 'dark' | null
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    const initial = stored || (prefersDark ? 'dark' : 'light')
-    setTheme(initial)
-    document.documentElement.classList.toggle('dark', initial === 'dark')
-  }, [])
-
-  const toggle = () => {
-    const next = theme === 'light' ? 'dark' : 'light'
-    setTheme(next)
-    localStorage.setItem('theme', next)
-    document.documentElement.classList.toggle('dark', next === 'dark')
-  }
-
-  if (!mounted) {
-    return <div className="w-9 h-9" />
-  }
+  const {ref, toggleSwitchTheme, isDarkMode} = useModeAnimation({
+    animationType: ThemeAnimationType.QR_SCAN
+  })
 
   return (
     <button
-      onClick={toggle}
+    ref={ref}
+      onClick={toggleSwitchTheme}
       className="w-9 h-9 flex items-center justify-center rounded-full text-foreground/60 hover:text-foreground hover:bg-foreground/5 transition-colors"
-      aria-label={theme === 'light' ? 'Switch to dark mode' : 'Switch to light mode'}
+      aria-label={!isDarkMode ? 'Switch to dark mode' : 'Switch to light mode'}
     >
-      {theme === 'light' ? <MoonIcon /> : <SunIcon />}
+      {!isDarkMode ? <MoonIcon /> : <SunIcon />}
     </button>
   )
 }
