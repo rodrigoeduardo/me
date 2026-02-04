@@ -42,4 +42,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# payload database (SQLite - deprecated)
+payload.db
+payload.db-journal
+
 .mcp.json

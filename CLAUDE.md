@@ -22,7 +22,7 @@ Personal portfolio/blog built with **Next.js 16** and **Payload CMS 3** integrat
 
 ### Payload CMS
 
-- **Database**: SQLite via `@payloadcms/db-sqlite` (file: `payload.db`)
+- **Database**: PostgreSQL via `@payloadcms/db-postgres`
 - **Editor**: Lexical rich text editor
 - **Collections** in `collections/`: Posts (localized), Categories, Media, Users
 - **Config**: `payload.config.ts` → auto-generates types to `payload-types.ts`

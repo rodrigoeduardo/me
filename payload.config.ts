@@ -1,5 +1,5 @@
 import { buildConfig } from 'payload'
-import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { postgresAdapter } from '@payloadcms/db-postgres'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
 import { fileURLToPath } from 'url'
 import path from 'path'
@@ -15,9 +15,9 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   secret: process.env.PAYLOAD_SECRET || 'REPLACE_WITH_SECURE_SECRET',
 
-  db: sqliteAdapter({
-    client: {
-      url: process.env.DATABASE_URL || 'file:./payload.db'
+  db: postgresAdapter({
+    pool: {
+      connectionString: process.env.DATABASE_URL
     }
   }),
 
