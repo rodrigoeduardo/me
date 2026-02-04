@@ -4,7 +4,8 @@ export const Media: CollectionConfig = {
   slug: 'media',
   upload: {
     staticDir: 'public/media',
-    mimeTypes: ['image/*']
+    mimeTypes: ['image/*'],
+    maxFileSize: 5000000 // 5MB
   },
   access: {
     read: () => true,

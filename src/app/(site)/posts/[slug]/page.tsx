@@ -9,7 +9,7 @@ type Props = {
 async function getPost(slug: string): Promise<Post | null> {
   try {
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/posts?where[slug][equals]=${slug}&limit=1&depth=1`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'}/api/posts?where[slug][equals]=${slug}&where[status][equals]=published&limit=1&depth=1`,
       { next: { revalidate: 60 } }
     )
 

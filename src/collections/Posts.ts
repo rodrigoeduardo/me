@@ -7,7 +7,10 @@ export const Posts: CollectionConfig = {
     defaultColumns: ['title', 'category', 'status', 'publishedAt']
   },
   access: {
-    read: () => true,
+    read: ({ req: { user } }) => {
+      if (user) return true
+      return { status: { equals: 'published' } }
+    },
     create: ({ req }) => !!req.user,
     update: ({ req }) => !!req.user,
     delete: ({ req }) => !!req.user

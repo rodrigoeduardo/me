@@ -7,10 +7,15 @@ export const Users: CollectionConfig = {
     useAsTitle: 'email'
   },
   access: {
-    read: () => true,
-    create: ({ req }) => !!req.user,
-    update: ({ req }) => !!req.user,
-    delete: ({ req }) => !!req.user
+    // Only authenticated users can read user list, or users can read themselves
+    read: ({ req: { user } }) => {
+      if (!user) return false
+      if (user.role === 'admin') return true
+      return { id: { equals: user.id } }
+    },
+    create: ({ req: { user } }) => user?.role === 'admin',
+    update: ({ req: { user } }) => !!user,
+    delete: ({ req: { user } }) => user?.role === 'admin'
   },
   fields: [
     {
@@ -25,7 +30,11 @@ export const Users: CollectionConfig = {
         { label: 'Editor', value: 'editor' }
       ],
       defaultValue: 'editor',
-      required: true
+      required: true,
+      saveToJWT: true,
+      access: {
+        update: ({ req: { user } }) => user?.role === 'admin'
+      }
     }
   ]
 }
