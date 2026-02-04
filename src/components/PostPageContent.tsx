@@ -3,14 +3,23 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
+function normalizeImageUrl(url: string): string {
+  // Convert absolute localhost URLs to relative paths for Next.js Image
+  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+  if (url.startsWith(serverUrl)) {
+    return url.slice(serverUrl.length)
+  }
+  return url
+}
+
 interface Post {
   title: string
   slug: string
   excerpt?: string | null
   content?: any
   coverImage?: {
-    filename: string
-    alt: string
+    url: string
+    alt?: string
   } | null
   category?: {
     name: string
@@ -182,7 +191,7 @@ export function PostPageContent({ post }: { post: Post }) {
         {post.coverImage && (
           <div className='relative aspect-video mb-12 overflow-hidden rounded-lg'>
             <Image
-              src={`/media/${post.coverImage.filename}`}
+              src={normalizeImageUrl(post.coverImage.url)}
               alt={post.coverImage.alt || post.title}
               fill
               className='object-cover'

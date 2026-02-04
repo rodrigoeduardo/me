@@ -18,7 +18,7 @@ interface PostsResponse {
     slug: string
     excerpt?: string | null
     coverImage?: {
-      filename: string
+      url: string
       alt?: string
     } | null
     category?: {
@@ -33,6 +33,15 @@ interface CategoriesResponse {
   docs: Category[]
 }
 
+function normalizeImageUrl(url: string): string {
+  // Convert absolute localhost URLs to relative paths for Next.js Image
+  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
+  if (url.startsWith(serverUrl)) {
+    return url.slice(serverUrl.length)
+  }
+  return url
+}
+
 function formatPosts(data: PostsResponse | undefined): PostCardProps[] {
   if (!data?.docs) return []
 
@@ -42,7 +51,7 @@ function formatPosts(data: PostsResponse | undefined): PostCardProps[] {
     excerpt: post.excerpt,
     coverImage: post.coverImage
       ? {
-          url: `/media/${post.coverImage.filename}`,
+          url: normalizeImageUrl(post.coverImage.url),
           alt: post.coverImage.alt || post.title
         }
       : null,
