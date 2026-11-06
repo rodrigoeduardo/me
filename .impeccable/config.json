@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "menlo",
+        "files": [
+          ".impeccable/mocks/decision/assigned.html"
+        ],
+        "createdAt": "2026-11-05T22:47:41.679Z",
+        "reason": "agent: unchosen decision-round sketch, never shipped"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "didot",
+        "files": [
+          ".impeccable/mocks/decision/challenger-flagship.html"
+        ],
+        "createdAt": "2026-11-05T22:47:41.698Z",
+        "reason": "agent: unchosen decision-round sketch, never shipped"
+      }
+    ]
+  }
+}

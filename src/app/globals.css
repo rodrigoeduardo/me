@@ -1,85 +1,116 @@
 @import 'tailwindcss';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #f1faff;
-  --foreground: #1e201f;
-  --highlight: #22d3ee;
-  --font-primary: 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
-  --font-secondary: 'IBM Plex Mono', 'SFMono-Regular', Menlo, monospace;
+  --background: #e4e8ec;
+  --surface: #ffffff;
+  --surface-head: #f6f7f9;
+  --rule: #dde2e7;
+  --foreground: #353535;
+  --muted: #5d6974;
+  --link: #2d6da3;
+  --link-fill: #2d6da3;
+  --gold: #dea905;
+  --on-gold: #2b2100;
+  --win: #267a3d;
+  --loss: #c4372f;
+  --idle: #8a96a1;
+  --panel: #1d2830;
+  --track: #e3e8ee;
+  --font-primary: 'Open Sans', 'Helvetica Neue', Arial, sans-serif;
 }
 
 .dark {
-  --background: #1e201f;
-  --foreground: #f1faff;
+  --background: #171c21;
+  --surface: #232a31;
+  --surface-head: #2a323a;
+  --rule: #343d47;
+  --foreground: #e4e8eb;
+  --muted: #a1abb5;
+  --link: #6fa8dc;
+  --win: #4caf65;
+  --loss: #e0574e;
+  --idle: #7d8994;
+  --panel: #10161b;
+  --track: #333c46;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-head: var(--surface-head);
+  --color-rule: var(--rule);
   --color-foreground: var(--foreground);
-  --color-highlight: var(--highlight);
+  --color-muted: var(--muted);
+  --color-link: var(--link);
+  --color-link-fill: var(--link-fill);
+  --color-gold: var(--gold);
+  --color-on-gold: var(--on-gold);
+  --color-win: var(--win);
+  --color-loss: var(--loss);
+  --color-idle: var(--idle);
+  --color-panel: var(--panel);
+  --color-track: var(--track);
   --font-sans: var(--font-primary);
-  --font-mono: var(--font-secondary);
+}
+
+html {
+  scroll-padding-top: 4rem;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-primary);
+  font-variant-numeric: tabular-nums;
 }
 
-/* Scrollbar styling */
+::selection {
+  background: var(--link);
+  color: var(--surface);
+}
+
+:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 2px;
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: var(--background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--foreground);
-  opacity: 0.2;
-  border-radius: 4px;
+  background: var(--idle);
+  border: 2px solid var(--background);
 }
 
-::-webkit-scrollbar-thumb:hover {
-  opacity: 0.4;
-}
-
-/* Shine animation for ShinyText */
-@keyframes shine {
-  0% {
-    background-position: 200% center;
+/* Stat bars fill once on load */
+@keyframes bar-fill {
+  from {
+    transform: scaleX(0);
   }
-  100% {
-    background-position: -200% center;
+  to {
+    transform: scaleX(1);
   }
 }
 
-.animate-shine {
-  animation: shine linear infinite;
-}
-
-/* Breathing glow behind profile photo */
-@keyframes glow-pulse {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1.25);
-  }
-  50% {
-    opacity: 0.85;
-    transform: scale(1.4);
-  }
-}
-
-.animate-glow-pulse {
-  animation: glow-pulse 4s ease-in-out 700ms infinite;
+.animate-bar-fill {
+  transform-origin: left;
+  animation: bar-fill 900ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .animate-glow-pulse {
+  .animate-bar-fill {
     animation: none;
   }
 }

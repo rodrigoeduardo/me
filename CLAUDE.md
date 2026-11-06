@@ -33,7 +33,7 @@ All source lives in `src/`; paths below are relative to it (config files like `p
 
 - **i18n**: Client-side via `lib/i18n.tsx` React Context (en/pt-BR)
 - **Theming**: CSS variables in `globals.css`, dark class on `<html>`
-- **Fonts**: Space Grotesk (primary), IBM Plex Mono (secondary)
+- **Fonts**: Open Sans (only face, via next/font). Visual system in `DESIGN.md`; product context in `PRODUCT.md`
 
 ### Path Aliases
 
@@ -46,7 +46,7 @@ All source lives in `src/`; paths below are relative to it (config files like `p
 - Components: PascalCase files, named exports (`export function Hero()`), props typed as `XxxProps` interface.
 - `'use client'` only where interactivity is needed. Post page fetches server-side; home and posts list fetch client-side with SWR.
 - Browser-only components (e.g. `Particles`, `ThemeToggle`) load via `next/dynamic` with `ssr: false`.
-- Tailwind utility classes inline; colors via CSS variables (`--background`, `--foreground`, `--highlight`).
+- Tailwind utility classes inline; colors via CSS variables defined in `globals.css` (see `DESIGN.md`).
 
 ### Docs
 

@@ -1,0 +1,490 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-05T22:46:05+00:00",
+  "title": "Design System: Rodrigo Eduardo",
+  "extensions": {
+    "colorMeta": {
+      "background": {
+        "role": "neutral",
+        "displayName": "Gray-Blue Ground",
+        "canonical": "#e4e8ec",
+        "oklch": "oklch(92.9% 0.007 247.9)",
+        "purpose": "Page field and scrollbar track.",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#222426",
+          "#3d4043",
+          "#5b5e61",
+          "#7a7e81",
+          "#9b9fa2",
+          "#c2c4c7",
+          "#edeff0"
+        ],
+        "dark": "#171c21"
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Box White",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "purpose": "Every box, rail list, nav bar and tab strip.",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#7d7d7d",
+          "#9e9e9e",
+          "#c4c4c4",
+          "#eeeeee"
+        ],
+        "dark": "#232a31"
+      },
+      "surface-head": {
+        "role": "neutral",
+        "displayName": "Header Strip",
+        "canonical": "#f6f7f9",
+        "oklch": "oklch(97.6% 0.003 264.5)",
+        "purpose": "Box header strips and the hover fill for rows and outlined actions.",
+        "tonalRamp": [
+          "#0b0b0c",
+          "#242425",
+          "#3f4041",
+          "#5d5e5f",
+          "#7c7d7f",
+          "#9d9ea0",
+          "#c3c4c5",
+          "#eeeeef"
+        ],
+        "dark": "#2a323a"
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#dde2e7",
+        "oklch": "oklch(91.0% 0.009 247.9)",
+        "purpose": "Every 1px border and row divider.",
+        "tonalRamp": [
+          "#0a0b0c",
+          "#222427",
+          "#3d4044",
+          "#5a5e62",
+          "#797e82",
+          "#9a9fa3",
+          "#c1c4c8",
+          "#edeff0"
+        ],
+        "dark": "#343d47"
+      },
+      "foreground": {
+        "role": "neutral",
+        "displayName": "Ink",
+        "canonical": "#353535",
+        "oklch": "oklch(32.9% 0.000 89.9)",
+        "purpose": "Body text and titles.",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#242424",
+          "#404040",
+          "#5d5d5d",
+          "#7d7d7d",
+          "#9e9e9e",
+          "#c4c4c4",
+          "#eeeeee"
+        ],
+        "dark": "#e4e8eb"
+      },
+      "muted": {
+        "role": "neutral",
+        "displayName": "Slate Muted",
+        "canonical": "#5d6974",
+        "oklch": "oklch(51.5% 0.023 245.9)",
+        "purpose": "Secondary lines, column headers, rail headings, inactive tabs, dates.",
+        "tonalRamp": [
+          "#080c0e",
+          "#1f252b",
+          "#37414a",
+          "#535f6a",
+          "#737f8a",
+          "#94a0ab",
+          "#bcc5cd",
+          "#eaeff4"
+        ],
+        "dark": "#a1abb5"
+      },
+      "link": {
+        "role": "primary",
+        "displayName": "Ledger Blue (text)",
+        "canonical": "#2d6da3",
+        "oklch": "oklch(51.9% 0.107 247.3)",
+        "purpose": "Link text and blue status words; lightens in dark mode.",
+        "tonalRamp": [
+          "#000c1a",
+          "#022642",
+          "#06426e",
+          "#206197",
+          "#4382ba",
+          "#68a4da",
+          "#9fc9f0",
+          "#dbf2ff"
+        ],
+        "dark": "#6fa8dc"
+      },
+      "link-fill": {
+        "role": "primary",
+        "displayName": "Ledger Blue (fill)",
+        "canonical": "#2d6da3",
+        "oklch": "oklch(51.9% 0.107 247.3)",
+        "purpose": "Filled primary actions, tags, pills, bars, underlines. No dark override: theme-invariant under white text.",
+        "tonalRamp": [
+          "#000c1a",
+          "#022642",
+          "#06426e",
+          "#206197",
+          "#4382ba",
+          "#68a4da",
+          "#9fc9f0",
+          "#dbf2ff"
+        ],
+        "dark": "#2d6da3",
+        "themeInvariant": true
+      },
+      "gold": {
+        "role": "secondary",
+        "displayName": "Trophy Gold",
+        "canonical": "#dea905",
+        "oklch": "oklch(76.3% 0.155 85.7)",
+        "purpose": "Achievement badge, selected screenshot ring, featured fact bullets. Theme-invariant.",
+        "tonalRamp": [
+          "#150800",
+          "#381d00",
+          "#5f3600",
+          "#845200",
+          "#a67300",
+          "#c79600",
+          "#e2c074",
+          "#ffedc5"
+        ],
+        "dark": "#dea905",
+        "themeInvariant": true
+      },
+      "on-gold": {
+        "role": "secondary",
+        "displayName": "Gold Ink",
+        "canonical": "#2b2100",
+        "oklch": "oklch(25.2% 0.052 92.1)",
+        "purpose": "Text on gold.",
+        "tonalRamp": [
+          "#0e0b04",
+          "#292411",
+          "#483f23",
+          "#685d3b",
+          "#887d5a",
+          "#a99e7c",
+          "#ccc4ac",
+          "#f3eee1"
+        ],
+        "dark": "#2b2100",
+        "themeInvariant": true
+      },
+      "win": {
+        "role": "tertiary",
+        "displayName": "Live Green",
+        "canonical": "#267a3d",
+        "oklch": "oklch(51.4% 0.123 148.9)",
+        "purpose": "Live status word, dot, row edge, availability line.",
+        "tonalRamp": [
+          "#001003",
+          "#002d0d",
+          "#004e1c",
+          "#187033",
+          "#409153",
+          "#67b376",
+          "#9fd3a7",
+          "#dbf7df"
+        ],
+        "dark": "#4caf65"
+      },
+      "idle": {
+        "role": "neutral",
+        "displayName": "Idle Gray",
+        "canonical": "#8a96a1",
+        "oklch": "oklch(66.7% 0.021 245.8)",
+        "purpose": "Archived row edge, hollow past-stack marker, scrollbar thumb. Never running text.",
+        "tonalRamp": [
+          "#090c0e",
+          "#1f252a",
+          "#384149",
+          "#545f69",
+          "#737f8a",
+          "#95a0ab",
+          "#bdc5cd",
+          "#eaeff3"
+        ],
+        "dark": "#7d8994"
+      },
+      "panel": {
+        "role": "neutral",
+        "displayName": "Night Panel",
+        "canonical": "#1d2830",
+        "oklch": "oklch(27.0% 0.021 240.1)",
+        "purpose": "Photo panel, screenshot stage, social icon buttons, code blocks, footer.",
+        "tonalRamp": [
+          "#080c0e",
+          "#1e252a",
+          "#374149",
+          "#535f69",
+          "#727f89",
+          "#94a0aa",
+          "#bcc6cd",
+          "#eaeff3"
+        ],
+        "dark": "#10161b"
+      },
+      "track": {
+        "role": "neutral",
+        "displayName": "Bar Track",
+        "canonical": "#e3e8ee",
+        "oklch": "oklch(92.9% 0.010 252.8)",
+        "purpose": "Unfilled stat-bar track and loading skeletons.",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#222427",
+          "#3d4044",
+          "#5a5e63",
+          "#797e83",
+          "#9a9fa4",
+          "#c1c4c8",
+          "#edeff1"
+        ],
+        "dark": "#333c46"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Profile handle; 26px below sm, 28px from sm."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Post article title; 28px below sm, 32px from sm, text-wrap balance."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Box header titles and experience company names."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Working size for rows, tables, lists, tabs, nav, buttons. Weights 400/600/700."
+      },
+      "body-small": {
+        "displayName": "Body Small",
+        "purpose": "Dates, context lines, column headers, badges, header asides."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase muted rail section headings and the featured stack sub-heading; the heading of its list, never an eyebrow above another heading."
+      },
+      "reading": {
+        "displayName": "Reading",
+        "purpose": "Post body copy, max 68ch."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "bar-fill",
+        "value": "scaleX(0) to scaleX(1), 900ms cubic-bezier(0.16, 1, 0.3, 1) both, transform-origin left, 70ms stagger per row",
+        "purpose": "Stat bars fill once on load; animation: none under prefers-reduced-motion."
+      },
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Easing for the one-shot bar fill."
+      },
+      {
+        "name": "state-transition",
+        "value": "color / background-color / filter, 150ms default ease",
+        "purpose": "Hover states on links, rows, tabs, toggles and filled buttons."
+      },
+      {
+        "name": "skeleton-pulse",
+        "value": "Tailwind animate-pulse on track-colored bars",
+        "purpose": "Loading placeholders for posts lists."
+      },
+      {
+        "name": "faq-toggle",
+        "value": "rotate(45deg) on the plus icon when details is open",
+        "purpose": "FAQ disclosure state."
+      }
+    ],
+    "focus": {
+      "value": "outline: 2px solid var(--link); outline-offset: 2px",
+      "purpose": "Global :focus-visible ring."
+    },
+    "selection": {
+      "value": "background: var(--link); color: var(--surface)",
+      "purpose": "Text selection."
+    },
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ],
+    "layout": {
+      "homeContainer": "1240px",
+      "readingContainer": "860px",
+      "homeGrid": "190px minmax(0, 1fr) 210px at lg; single column below",
+      "pageGap": "16px",
+      "boxGap": "12px",
+      "headerHeight": "48px",
+      "scrollPadding": "64px"
+    }
+  },
+  "components": [
+    {
+      "name": "Box",
+      "kind": "card",
+      "refersTo": "box",
+      "description": "The standard content box: pale header strip with 15px bold title and muted aside over a white ruled body.",
+      "html": "<section class=\"ds-box\"><header class=\"ds-box-head\"><h2 class=\"ds-box-title\">Rodrigo by area</h2><span class=\"ds-box-aside\">Years of professional use</span></header><ul class=\"ds-box-rows\"><li><b>Frontend</b><span>4 years</span></li><li><b>Backend</b><span>4 years</span></li></ul></section>",
+      "css": ".ds-box { font-family: var(--font-primary, 'Open Sans', 'Helvetica Neue', Arial, sans-serif); font-variant-numeric: tabular-nums; background: var(--surface); color: var(--foreground); border: 1px solid var(--rule); border-radius: 0; font-size: 13px; } .ds-box-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 8px 12px; background: var(--surface-head); border-bottom: 1px solid var(--rule); } .ds-box-title { margin: 0; font-size: 15px; font-weight: 700; line-height: 1.25; } .ds-box-aside { font-size: 12px; color: var(--muted); } .ds-box-rows { list-style: none; margin: 0; padding: 0 12px; } .ds-box-rows li { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid var(--rule); } .ds-box-rows li:last-child { border-bottom: 0; }"
+    },
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Filled Ledger Blue; reserved for primary actions (Download CV, Open the demo, All repositories).",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\">Open the demo <svg width=\"15\" height=\"15\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M7 7h10v10\"/><path d=\"M7 17 17 7\"/></svg></a>",
+      "css": ".ds-btn-primary { font-family: var(--font-primary, 'Open Sans', 'Helvetica Neue', Arial, sans-serif); font-variant-numeric: tabular-nums; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 8px 16px; font-size: 13px; font-weight: 700; color: #fff; background: var(--link-fill); border: 0; border-radius: 0; text-decoration: none; transition: filter 150ms; } .ds-btn-primary:hover { filter: brightness(1.1); } .ds-btn-primary:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }"
+    },
+    {
+      "name": "Outlined Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Box-closing and secondary actions: hairline border, link-blue text, header-strip fill on hover.",
+      "html": "<a class=\"ds-btn-outline\" href=\"#\">All projects</a>",
+      "css": ".ds-btn-outline { font-family: var(--font-primary, 'Open Sans', 'Helvetica Neue', Arial, sans-serif); font-variant-numeric: tabular-nums; display: block; padding: 8px 12px; text-align: center; font-size: 13px; font-weight: 700; color: var(--link); background: var(--surface); border: 1px solid var(--rule); border-radius: 0; text-decoration: none; transition: background-color 150ms; } .ds-btn-outline:hover { background: var(--surface-head); } .ds-btn-outline:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }"
+    },
+    {
+      "name": "Highlight Badges",
+      "kind": "chip",
+      "refersTo": "badge-gold",
+      "description": "Square achievement badges: gold with on-gold ink for production, blue with white for open source.",
+      "html": "<span class=\"ds-badges\"><a class=\"ds-badge ds-badge-gold\" href=\"#\">1x product in production</a><a class=\"ds-badge ds-badge-blue\" href=\"#\">1x open source tool</a></span>",
+      "css": ".ds-badges { font-family: var(--font-primary, 'Open Sans', 'Helvetica Neue', Arial, sans-serif); font-variant-numeric: tabular-nums; display: inline-flex; gap: 6px; } .ds-badge { padding: 2px 8px; font-size: 12px; font-weight: 600; border-radius: 0; text-decoration: none; } .ds-badge-gold { background: var(--gold); color: var(--on-gold); } .ds-badge-gold:hover { filter: brightness(1.05); } .ds-badge-blue { background: var(--link-fill); color: #fff; } .ds-badge-blue:hover { filter: brightness(1.1); } .ds-badge:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }"
+    },
+    {
+      "name": "Profile Tabs",
+      "kind": "nav",
+      "refersTo": "tab",
+      "description": "Ruled tab strip; active tab in ink with a 3px blue underline inset 12px.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\"><button class=\"ds-tab\" role=\"tab\" aria-selected=\"true\">Overview</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Experience</button><button class=\"ds-tab\" role=\"tab\" aria-selected=\"false\">Projects</button></div>",
+      "css": ".ds-tabs { font-family: var(--font-primary, 'Open Sans', 'Helvetica Neue', Arial, sans-serif); font-variant-numeric: tabular-nums; display: flex; background: var(--surface); border: 1px solid var(--rule); } .ds-tab { position: relative; flex-grow: 1; height: 44px; padding: 0 16px; font: inherit; font-size: 13px; font-weight: 700; color: var(--muted); background: none; border: 0; cursor: pointer; transition: color 150ms; } .ds-tab:hover { color: var(--foreground); } .ds-tab[aria-selected=true] { color: var(--foreground); } .ds-tab[aria-selected=true]::after { content: ''; position: absolute; left: 12px; right: 12px; bottom: 0; height: 3px; background: var(--link-fill); } .ds-tab:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }"
+    },
+    {
+      "name": "Project Row",
+      "kind": "custom",
+      "description": "Ledger row with a 3px right status edge: green live, blue open source, gray shipped.",
+      "html": "<ul class=\"ds-rows\"><li class=\"ds-row ds-live\"><div><p class=\"ds-row-name\">YMS · Pátio</p><p class=\"ds-row-ctx\">Scrap-yard inventory, QR per item</p></div><div class=\"ds-row-end\"><p class=\"ds-row-name\">2026</p><p class=\"ds-row-status\">Live</p></div></li><li class=\"ds-row ds-oss\"><div><p class=\"ds-row-name\">raw</p><p class=\"ds-row-ctx\">Agentic workflow for Claude Code</p></div><div class=\"ds-row-end\"><p class=\"ds-row-name\">2026</p><p class=\"ds-row-status\">Open source</p></div></li><li class=\"ds-row ds-archived\"><div><p class=\"ds-row-name\">Sebito</p><p class=\"ds-row-ctx\">Management system</p></div><div class=\"ds-row-end\"><p class=\"ds-row-name\">2024–2025</p><p class=\"ds-row-status\">Shipped</p></div></li></ul>",
+      "css": ".ds-rows { font-family: var(--font-primary, 'Open Sans', 'Helvetica Neue', Arial, sans-serif); font-variant-numeric: tabular-nums; list-style: none; margin: 0; padding: 0; background: var(--surface); color: var(--foreground); border: 1px solid var(--rule); } .ds-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 12px; border-bottom: 1px solid var(--rule); border-right: 3px solid var(--idle); } .ds-row p { margin: 0; } .ds-row-name { font-size: 13px; font-weight: 700; } .ds-row-ctx { font-size: 12px; color: var(--muted); } .ds-row-end { text-align: right; } .ds-row-status { font-size: 12px; font-weight: 600; color: var(--muted); } .ds-live { border-right-color: var(--win); } .ds-live .ds-row-status { color: var(--win); } .ds-oss { border-right-color: var(--link); } .ds-oss .ds-row-status { color: var(--link); }"
+    },
+    {
+      "name": "Stat Bar",
+      "kind": "custom",
+      "description": "Years-per-area bar: 6px track, blue fill that grows once from the left; static under reduced motion.",
+      "html": "<div class=\"ds-stat\"><div class=\"ds-stat-head\"><b>Web3</b><span><b>3</b> <small>years</small></span></div><div class=\"ds-stat-track\"><div class=\"ds-stat-fill\" style=\"width:75%\"></div></div></div>",
+      "css": ".ds-stat { font-family: var(--font-primary, 'Open Sans', 'Helvetica Neue', Arial, sans-serif); font-variant-numeric: tabular-nums; padding: 8px 12px; background: var(--surface); color: var(--foreground); font-size: 13px; } .ds-stat-head { display: flex; justify-content: space-between; align-items: baseline; } .ds-stat-head small { font-size: 12px; color: var(--muted); } .ds-stat-track { margin-top: 6px; height: 6px; background: var(--track); } .ds-stat-fill { height: 100%; background: var(--link-fill); transform-origin: left; animation: ds-bar-fill 900ms cubic-bezier(0.16, 1, 0.3, 1) both; } @keyframes ds-bar-fill { from { transform: scaleX(0); } to { transform: scaleX(1); } } @media (prefers-reduced-motion: reduce) { .ds-stat-fill { animation: none; } }"
+    },
+    {
+      "name": "Rail List",
+      "kind": "custom",
+      "description": "Rail section: 11px uppercase muted heading over a single ruled list box (no header strip).",
+      "html": "<aside class=\"ds-rail\"><h2 class=\"ds-rail-h\">Current stack</h2><ol class=\"ds-rail-list\"><li><span>1.</span><a href=\"#\">TypeScript</a></li><li><span>2.</span><a href=\"#\">React</a></li><li><span>3.</span><a href=\"#\">Next.js</a></li></ol></aside>",
+      "css": ".ds-rail { font-family: var(--font-primary, 'Open Sans', 'Helvetica Neue', Arial, sans-serif); font-variant-numeric: tabular-nums; font-size: 13px; width: 190px; } .ds-rail-h { margin: 0; padding: 16px 4px 6px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); } .ds-rail-list { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--rule); } .ds-rail-list li { display: flex; align-items: center; gap: 8px; padding: 6px 10px; border-bottom: 1px solid var(--rule); } .ds-rail-list li:last-child { border-bottom: 0; } .ds-rail-list span { width: 16px; text-align: right; color: var(--muted); } .ds-rail-list a { color: var(--link); text-decoration: none; } .ds-rail-list a:hover { text-decoration: underline; text-underline-offset: 3px; }"
+    },
+    {
+      "name": "Header Bar",
+      "kind": "nav",
+      "refersTo": "nav-bar",
+      "description": "Sticky 48px bar: monogram and name, 13px nav links, toggles, filled CV button.",
+      "html": "<header class=\"ds-nav\"><a class=\"ds-nav-brand\" href=\"#\"><span class=\"ds-nav-mark\">RE</span>Rodrigo Eduardo</a><nav><a class=\"ds-nav-link\" href=\"#\">Overview</a><a class=\"ds-nav-link\" href=\"#\">Projects</a><a class=\"ds-nav-link\" href=\"#\">Posts</a></nav><span class=\"ds-nav-toggle\">PT</span><a class=\"ds-nav-cv\" href=\"#\">Download CV</a></header>",
+      "css": ".ds-nav { font-family: var(--font-primary, 'Open Sans', 'Helvetica Neue', Arial, sans-serif); font-variant-numeric: tabular-nums; display: flex; align-items: center; gap: 16px; height: 48px; padding: 0 16px; background: var(--surface); color: var(--foreground); border-bottom: 1px solid var(--rule); } .ds-nav-brand { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 800; letter-spacing: -0.01em; color: inherit; text-decoration: none; } .ds-nav-mark { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; background: var(--link-fill); color: #fff; font-size: 13px; font-weight: 800; } .ds-nav nav { flex: 1; display: flex; gap: 4px; } .ds-nav-link { padding: 6px 10px; font-size: 13px; color: color-mix(in srgb, var(--foreground) 85%, transparent); text-decoration: none; transition: color 150ms; } .ds-nav-link:hover { color: var(--link); } .ds-nav-toggle { padding: 0 8px; height: 36px; display: flex; align-items: center; font-size: 13px; font-weight: 700; color: var(--muted); } .ds-nav-cv { height: 32px; padding: 0 12px; display: inline-flex; align-items: center; font-size: 13px; font-weight: 700; color: #fff; background: var(--link-fill); text-decoration: none; } .ds-nav-cv:hover { filter: brightness(1.1); } .ds-nav a:focus-visible { outline: 2px solid var(--link); outline-offset: 2px; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Ficha de Jogador",
+    "overview": "The site is a pro player profile page, translated to a developer career: an identity table, team history, achievement badges, stats bars and a ledger of recent \"matches\" (projects). It is dense and factual. Information sits in white boxes with pale header strips on a gray-blue ground, set in small Open Sans with tabular numerals, the way a stats site reads rather than the way a marketing page sells. The reader skims rows, not hero copy.\n\nPersonality lives in the details (the trophy-shelf milestone row, the gold highlight badges, status edges on project rows, a flag on the photo panel), never in effects. Depth is structural: borders, header strips and a dark panel behind imagery; there are no shadows, no glows, no gradients. Light and dark are the same structure: the dark theme swaps the ground and boxes to slate while the filled blue and gold stay constant. The confirmed anti-reference is the generic dark-neon developer portfolio (glow, particles, card grid).",
+    "keyCharacteristics": [
+      "Boxes, not cards: square, 1px ruled, header strip on top, flat.",
+      "Small and dense: 13px body, 15px box titles, 11px uppercase rail headings.",
+      "Tabular numerals everywhere (set on `body`).",
+      "One blue doing two jobs: link text, and filled primary actions and markers.",
+      "Gold marks achievements only.",
+      "Status is a colored edge plus a colored word, never a colored card."
+    ],
+    "rules": [
+      {
+        "name": "The Two-Blues Rule",
+        "body": "Blue text uses `link`, which lightens in dark mode; blue fills use `link-fill`, which never changes. Never put white text on `link`.",
+        "section": "colors"
+      },
+      {
+        "name": "The Gold-Is-Earned Rule",
+        "body": "Gold marks an achievement or the current selection of an achievement-adjacent element. It is never a generic accent or a button.",
+        "section": "colors"
+      },
+      {
+        "name": "The Status-Edge Rule",
+        "body": "Project status is a 3px edge on the row plus a colored status word: green live, blue open source, gray shipped/archived. The direction contract named red for a status edge; the build ships blue for open source and no red, and the build is authoritative.",
+        "section": "colors"
+      },
+      {
+        "name": "The Weight-Not-Size Rule",
+        "body": "Hierarchy inside a box comes from weight (700 label vs 400 value) and color (ink vs muted), not from new sizes. Stay on the 11 / 12 / 13 / 15 px steps inside boxes.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tabular Rule",
+        "body": "Numerals are tabular everywhere; do not switch to proportional figures for \"nicer\" prose numbers.",
+        "section": "typography"
+      },
+      {
+        "name": "The Rail Rule",
+        "body": "Rails are bare stacks: an 11px uppercase muted heading, then a single ruled list box. No header strip on rail lists.",
+        "section": "layout"
+      },
+      {
+        "name": "The No-Lift Rule",
+        "body": "Never add a box-shadow, glow or gradient to separate content. If something needs separation, it gets a rule, a strip, or the panel.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do put every content group in a square Box: 1px hairline border, Header Strip title bar at 15px bold.",
+      "Do keep body copy at 13px with weight and muted color carrying hierarchy.",
+      "Do reserve filled Ledger Blue buttons for primary actions (Download CV, Open the demo, All repositories) and use outlined buttons for everything else.",
+      "Do use `link` for blue text and `link-fill` for blue fills so both themes stay legible.",
+      "Do mark project status with a 3px row edge plus a colored word: green live, blue open source, gray shipped.",
+      "Do use gold only for achievements, with on-gold ink.",
+      "Do design every surface in both light and dark, and in both en and pt-BR.",
+      "Do honor reduced motion: one-shot fills and color transitions only, with animation removed under `prefers-reduced-motion`."
+    ],
+    "donts": [
+      "Don't add shadows, glows, gradients or particle effects; the dark-neon developer portfolio is the anti-reference.",
+      "Don't round box, button, badge or tab corners; full rounding is only for status dots and count pills.",
+      "Don't put white text on gold or on the text-role `link` blue.",
+      "Don't use a filled blue button for a secondary action.",
+      "Don't use Idle Gray for running text; it is for edges and markers."
+    ]
+  }
+}
