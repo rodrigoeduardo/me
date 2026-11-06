@@ -36,7 +36,11 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ARG NODE_OPTIONS=--max-old-space-size=2048
 ENV NODE_OPTIONS=${NODE_OPTIONS}
 
-RUN pnpm build
+# The home page is prerendered here, so it needs GITHUB_TOKEN at build time to
+# include the private contribution count. Dokploy passes it as a build-time
+# secret (`--secret type=env,id=GITHUB_TOKEN`); the mount keeps it out of the
+# image layers and history. Optional: without it the count is just hidden.
+RUN --mount=type=secret,id=GITHUB_TOKEN,env=GITHUB_TOKEN pnpm build
 
 # ---- runner -----------------------------------------------------------------
 FROM node:${NODE_VERSION} AS runner
