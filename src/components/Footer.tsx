@@ -1,32 +1,40 @@
 'use client'
 
+import { useLanguage } from '@/lib/i18n'
+import { profile } from '@/lib/profile'
+
 const currentYear = new Date().getFullYear()
 
 export function Footer() {
+  const { t } = useLanguage()
+
+  const links = [
+    { href: profile.github, label: 'GitHub' },
+    { href: profile.linkedin, label: 'LinkedIn' },
+    { href: `mailto:${profile.email}`, label: profile.email }
+  ]
+
   return (
-    <footer className='border-t border-foreground/5 py-8'>
-      <div className='max-w-5xl mx-auto px-6'>
-        <div className='flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-foreground/50'>
-          <p>© {currentYear} Rodrigo Eduardo. All rights reserved.</p>
-          <div className='flex items-center gap-4'>
-            <a
-              href='https://github.com/rodrigoeduardo'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='hover:text-foreground transition-colors'
-            >
-              GitHub
-            </a>
-            <a
-              href='https://www.linkedin.com/in/rodrigoedb/'
-              target='_blank'
-              rel='noopener noreferrer'
-              className='hover:text-foreground transition-colors'
-            >
-              LinkedIn
-            </a>
-          </div>
-        </div>
+    <footer className='mt-6 bg-panel text-white/75'>
+      <div className='max-w-[1240px] mx-auto px-3 sm:px-4 py-6 flex flex-col md:flex-row md:items-center justify-between gap-3 text-[13px]'>
+        <p>
+          © {currentYear} {profile.name}. {t('footer.rights')}
+        </p>
+        <ul className='flex flex-wrap items-center gap-x-4 gap-y-1'>
+          {links.map(link => (
+            <li key={link.label}>
+              <a
+                href={link.href}
+                {...(link.href.startsWith('http')
+                  ? { target: '_blank', rel: 'noopener noreferrer' }
+                  : {})}
+                className='hover:text-white hover:underline'
+              >
+                {link.label}
+              </a>
+            </li>
+          ))}
+        </ul>
       </div>
     </footer>
   )

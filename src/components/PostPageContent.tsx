@@ -2,6 +2,8 @@
 
 import Link from 'next/link'
 import Image from 'next/image'
+import { ArrowLeft } from 'lucide-react'
+import { useLanguage } from '@/lib/i18n'
 
 function normalizeImageUrl(url: string): string {
   // Convert absolute localhost URLs to relative paths for Next.js Image
@@ -44,7 +46,7 @@ function RichTextRenderer({ content }: { content: any }) {
         text = (
           <code
             key={index}
-            className='px-1.5 py-0.5 bg-foreground/5 rounded font-mono text-sm'
+            className='px-1 py-0.5 bg-surface-head border border-rule font-mono text-[0.9em]'
           >
             {text}
           </code>
@@ -106,7 +108,7 @@ function RichTextRenderer({ content }: { content: any }) {
         return (
           <blockquote
             key={index}
-            className='border-l-4 border-highlight pl-4 italic my-4 text-foreground/70'
+            className='bg-surface-head px-4 py-3 italic my-4 text-muted'
           >
             {children}
           </blockquote>
@@ -116,7 +118,7 @@ function RichTextRenderer({ content }: { content: any }) {
           <a
             key={index}
             href={node.url}
-            className='text-highlight underline hover:no-underline'
+            className='text-link underline hover:no-underline'
             target='_blank'
             rel='noopener noreferrer'
           >
@@ -127,7 +129,7 @@ function RichTextRenderer({ content }: { content: any }) {
         return (
           <pre
             key={index}
-            className='bg-foreground/5 p-4 rounded-lg overflow-x-auto mb-4 font-mono text-sm'
+            className='bg-panel text-white/90 p-4 overflow-x-auto mb-4 font-mono text-[13px]'
           >
             <code>{children}</code>
           </pre>
@@ -138,7 +140,7 @@ function RichTextRenderer({ content }: { content: any }) {
   }
 
   return (
-    <div className='prose prose-lg max-w-none'>
+    <div className='max-w-[68ch] text-[15px] leading-relaxed'>
       {content.root.children.map((node: any, index: number) =>
         renderNode(node, index)
       )}
@@ -149,8 +151,9 @@ function RichTextRenderer({ content }: { content: any }) {
 export { type Post }
 
 export function PostPageContent({ post }: { post: Post }) {
+  const { t, locale } = useLanguage()
   const formattedDate = post.publishedAt
-    ? new Date(post.publishedAt).toLocaleDateString('en-US', {
+    ? new Date(post.publishedAt).toLocaleDateString(locale, {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
@@ -158,52 +161,55 @@ export function PostPageContent({ post }: { post: Post }) {
     : null
 
   return (
-    <article className='min-h-screen py-24'>
-      <div className='max-w-3xl mx-auto px-6'>
-        <header className='mb-12'>
-          <Link
-            href='/posts'
-            className='inline-flex items-center gap-2 text-sm text-foreground/50 hover:text-foreground mb-6 transition-colors'
-          >
-            ← Back to posts
-          </Link>
+    <div className='max-w-[860px] mx-auto px-3 sm:px-4 py-4'>
+      <Link
+        href='/posts'
+        className='inline-flex items-center gap-1.5 mb-3 text-[13px] text-link hover:underline'
+      >
+        <ArrowLeft size={14} aria-hidden='true' />
+        {t('posts.back')}
+      </Link>
 
-          <div className='flex items-center gap-3 text-sm font-mono text-foreground/50 mb-4'>
+      <article className='bg-surface border border-rule'>
+        <header className='px-4 sm:px-6 pt-5 pb-4 border-b border-rule'>
+          <p className='text-xs text-muted'>
             {post.category && (
-              <span className='uppercase tracking-wider text-highlight'>
+              <span className='text-link font-semibold'>
                 {post.category.name}
               </span>
             )}
+            {post.category && formattedDate && ' · '}
             {formattedDate && (
               <time dateTime={post.publishedAt!}>{formattedDate}</time>
             )}
-          </div>
+          </p>
 
-          <h1 className='text-4xl md:text-5xl font-bold leading-tight'>
+          <h1 className='mt-2 text-[28px] sm:text-[32px] font-bold leading-tight tracking-[-0.01em] text-balance'>
             {post.title}
           </h1>
 
           {post.excerpt && (
-            <p className='text-xl text-foreground/60 mt-4'>{post.excerpt}</p>
+            <p className='mt-2 text-[15px] text-muted'>{post.excerpt}</p>
           )}
         </header>
 
         {post.coverImage && (
-          <div className='relative aspect-video mb-12 overflow-hidden rounded-lg'>
+          <div className='relative aspect-video bg-panel'>
             <Image
               src={normalizeImageUrl(post.coverImage.url)}
               alt={post.coverImage.alt || post.title}
               fill
+              sizes='860px'
               className='object-cover'
               priority
             />
           </div>
         )}
 
-        <div className='text-foreground/80'>
+        <div className='px-4 sm:px-6 py-6'>
           <RichTextRenderer content={post.content} />
         </div>
-      </div>
-    </article>
+      </article>
+    </div>
   )
 }

@@ -1,17 +1,11 @@
-import { IBM_Plex_Mono, Space_Grotesk } from 'next/font/google'
+import { Open_Sans } from 'next/font/google'
 import '../globals.css'
 import { SiteWrapper } from './SiteWrapper'
 
-const primaryFont = Space_Grotesk({
+const primaryFont = Open_Sans({
   variable: '--font-primary',
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700']
-})
-
-const secondaryFont = IBM_Plex_Mono({
-  variable: '--font-secondary',
-  subsets: ['latin'],
-  weight: ['400', '500', '600', '700']
+  weight: ['400', '600', '700', '800']
 })
 
 export default function SiteLayout({
@@ -39,7 +33,7 @@ export default function SiteLayout({
         />
       </head>
       <body
-        className={`${primaryFont.variable} ${secondaryFont.variable} antialiased bg-background text-foreground`}
+        className={`${primaryFont.variable} antialiased bg-background text-foreground`}
       >
         <SiteWrapper>{children}</SiteWrapper>
       </body>
