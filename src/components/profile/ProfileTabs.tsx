@@ -63,6 +63,44 @@ export function ProfileTabs() {
     if (isTab(hash)) rootRef.current?.scrollIntoView({ block: 'start' })
   }, [hash])
 
+  // next/link changes the hash with pushState, which fires no hashchange, and
+  // re-clicking the current hash fires nothing either. Handle same-page tab
+  // links here so they always open the tab and scroll to it.
+  useEffect(() => {
+    const onClick = (event: MouseEvent) => {
+      if (
+        event.defaultPrevented ||
+        event.button !== 0 ||
+        event.metaKey ||
+        event.ctrlKey ||
+        event.shiftKey ||
+        event.altKey
+      ) {
+        return
+      }
+      const link = (event.target as Element | null)?.closest('a')
+      if (!link || link.target === '_blank') return
+      const url = new URL(link.href)
+      const tab = url.hash.slice(1)
+      if (
+        url.origin !== window.location.origin ||
+        url.pathname !== window.location.pathname ||
+        (tab !== '' && !isTab(tab))
+      ) {
+        return
+      }
+      event.preventDefault()
+      if (url.hash !== window.location.hash) {
+        history.pushState(null, '', tab ? `#${tab}` : url.pathname)
+        window.dispatchEvent(new HashChangeEvent('hashchange'))
+      }
+      if (tab) rootRef.current?.scrollIntoView({ block: 'start' })
+      else window.scrollTo({ top: 0 })
+    }
+    document.addEventListener('click', onClick, true)
+    return () => document.removeEventListener('click', onClick, true)
+  }, [])
+
   const select = (tab: Tab, focus = false) => {
     if (tab !== active) {
       fromTabClick.current = true
