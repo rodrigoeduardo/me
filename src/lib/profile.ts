@@ -1,6 +1,7 @@
 import type { Locale } from './i18n'
 
-// Every fact here comes from the CV (public/assets/cvs) or the YMS repo.
+// Every fact here comes from the CV (public/assets/cvs) or the project repos
+// (YMS, Roteiro do grupo).
 // Do not add numbers or claims that are not in those sources.
 
 export type Localized = Record<Locale, string>
@@ -30,6 +31,27 @@ export interface Project {
   url?: string | Localized
   repo?: string
   stack: string[]
+}
+
+export interface FeaturedShot {
+  src: string | Localized
+  alt: Localized
+}
+
+export interface FeaturedProject {
+  id: string
+  name: Localized
+  repo: string
+  site?: Localized
+  demo?: Localized
+  summary: Localized
+  status: Localized
+  // Green dot for something running in production; neutral otherwise.
+  live: boolean
+  facts: Localized[]
+  stack: { name: string; role: Localized }[]
+  shotsLabel: Localized
+  shots: FeaturedShot[]
 }
 
 export interface Achievement {
@@ -206,83 +228,188 @@ export const teams: Team[] = [
   }
 ]
 
-export const featuredProject = {
-  // Same product, branded per language: YMS in English, Pátio in Portuguese.
-  name: { en: 'YMS', 'pt-BR': 'Pátio (YMS)' } as Localized,
-  repo: 'https://github.com/rodrigoeduardo/yard-management-system',
-  site: {
-    en: 'https://yms.rodrigoeduardo.com',
-    'pt-BR': 'https://patio.rodrigoeduardo.com'
-  } as Localized,
-  demo: {
-    en: 'https://yms-demo.rodrigoeduardo.com',
-    'pt-BR': 'https://patio-demo.rodrigoeduardo.com'
-  } as Localized,
-  summary: {
-    en: 'Inventory control for scrap yards. Every load enters through its Nota Fiscal (Brazilian invoice), every item gets its own printed QR code, and every removal is a scan.',
-    'pt-BR':
-      'Controle de estoque para pátios de sucata. Cada carga entra pela Nota Fiscal, cada item ganha sua etiqueta QR impressa, e cada saída é um bipe.'
-  } as Localized,
-  status: {
-    en: 'In production at a scrap yard in São Paulo',
-    'pt-BR': 'Em produção num pátio de sucata em São Paulo'
-  } as Localized,
-  facts: [
-    {
-      en: 'Generic product with private per-client forks',
-      'pt-BR': 'Produto genérico com forks privados por cliente'
+export const featuredProjects: FeaturedProject[] = [
+  {
+    id: 'yms',
+    // Same product, branded per language: YMS in English, Pátio in Portuguese.
+    name: { en: 'YMS', 'pt-BR': 'Pátio (YMS)' },
+    repo: 'https://github.com/rodrigoeduardo/yard-management-system',
+    site: {
+      en: 'https://yms.rodrigoeduardo.com',
+      'pt-BR': 'https://patio.rodrigoeduardo.com'
     },
-    {
-      en: 'QR labels printed at entry, read by phone camera (PWA)',
-      'pt-BR': 'Etiquetas QR impressas na entrada, lidas pela câmera do celular (PWA)'
+    demo: {
+      en: 'https://yms-demo.rodrigoeduardo.com',
+      'pt-BR': 'https://patio-demo.rodrigoeduardo.com'
     },
-    {
-      en: 'Unit and integration tests against a local Supabase stack',
-      'pt-BR': 'Testes unitários e de integração num Supabase local'
+    summary: {
+      en: 'Inventory control for scrap yards. Every load enters through its Nota Fiscal (Brazilian invoice), every item gets its own printed QR code, and every removal is a scan.',
+      'pt-BR':
+        'Controle de estoque para pátios de sucata. Cada carga entra pela Nota Fiscal, cada item ganha sua etiqueta QR impressa, e cada saída é um bipe.'
     },
-    {
-      en: 'Public demo with fictional data, reset every night',
-      'pt-BR': 'Demo pública com dados fictícios, reiniciada toda noite'
-    }
-  ] as Localized[],
-  stack: [
-    { name: 'Next.js', role: { en: 'app', 'pt-BR': 'app' } },
-    { name: 'Supabase', role: { en: 'auth + Postgres', 'pt-BR': 'auth + Postgres' } },
-    { name: 'Drizzle', role: { en: 'ORM + migrations', 'pt-BR': 'ORM + migrations' } },
-    { name: 'zxing', role: { en: 'QR scanning', 'pt-BR': 'leitura de QR' } },
-    { name: 'TanStack Table', role: { en: 'inventory tables', 'pt-BR': 'tabelas de estoque' } },
-    { name: 'Vitest', role: { en: 'tests', 'pt-BR': 'testes' } }
-  ],
-  shots: [
-    {
-      src: '/assets/projects/yms-dashboard.webp',
-      alt: {
-        en: 'YMS home screen: active loads, materials in the yard, remaining weight and latest movements',
+    status: {
+      en: 'In production at a scrap yard in São Paulo',
+      'pt-BR': 'Em produção num pátio de sucata em São Paulo'
+    },
+    live: true,
+    facts: [
+      {
+        en: 'Generic product with private per-client forks',
+        'pt-BR': 'Produto genérico com forks privados por cliente'
+      },
+      {
+        en: 'QR labels printed at entry, read by phone camera (PWA)',
         'pt-BR':
-          'Tela inicial do YMS: cargas ativas, materiais no pátio, peso restante e última movimentação'
-      } as Localized
-    },
-    {
-      src: '/assets/projects/yms-inventory.webp',
-      alt: {
-        en: 'YMS inventory: loads by Nota Fiscal with weight and item count, and removal history',
-        'pt-BR':
-          'Estoque do YMS: cargas por Nota Fiscal com peso e quantidade de itens, e histórico de remoções'
-      } as Localized
-    },
-    {
-      // The landing has its own en/pt-BR versions; the app screens are pt-BR only.
-      src: {
-        en: '/assets/projects/yms-landing-en.webp',
-        'pt-BR': '/assets/projects/yms-landing.webp'
-      } as Localized,
-      alt: {
-        en: 'YMS landing page with a printed QR item label',
-        'pt-BR': 'Landing page do Pátio com uma etiqueta QR de item'
-      } as Localized
+          'Etiquetas QR impressas na entrada, lidas pela câmera do celular (PWA)'
+      },
+      {
+        en: 'Unit and integration tests against a local Supabase stack',
+        'pt-BR': 'Testes unitários e de integração num Supabase local'
+      },
+      {
+        en: 'Public demo with fictional data, reset every night',
+        'pt-BR': 'Demo pública com dados fictícios, reiniciada toda noite'
+      }
+    ],
+    stack: [
+      { name: 'Next.js', role: { en: 'app', 'pt-BR': 'app' } },
+      {
+        name: 'Supabase',
+        role: { en: 'auth + Postgres', 'pt-BR': 'auth + Postgres' }
+      },
+      {
+        name: 'Drizzle',
+        role: { en: 'ORM + migrations', 'pt-BR': 'ORM + migrations' }
+      },
+      { name: 'zxing', role: { en: 'QR scanning', 'pt-BR': 'leitura de QR' } },
+      {
+        name: 'TanStack Table',
+        role: { en: 'inventory tables', 'pt-BR': 'tabelas de estoque' }
+      },
+      { name: 'Vitest', role: { en: 'tests', 'pt-BR': 'testes' } }
+    ],
+    shots: [
+      {
+        src: '/assets/projects/yms-dashboard.webp',
+        alt: {
+          en: 'YMS home screen: active loads, materials in the yard, remaining weight and latest movements',
+          'pt-BR':
+            'Tela inicial do YMS: cargas ativas, materiais no pátio, peso restante e última movimentação'
+        }
+      },
+      {
+        src: '/assets/projects/yms-inventory.webp',
+        alt: {
+          en: 'YMS inventory: loads by Nota Fiscal with weight and item count, and removal history',
+          'pt-BR':
+            'Estoque do YMS: cargas por Nota Fiscal com peso e quantidade de itens, e histórico de remoções'
+        }
+      },
+      {
+        // The landing has its own en/pt-BR versions; the app screens are pt-BR only.
+        src: {
+          en: '/assets/projects/yms-landing-en.webp',
+          'pt-BR': '/assets/projects/yms-landing.webp'
+        },
+        alt: {
+          en: 'YMS landing page with a printed QR item label',
+          'pt-BR': 'Landing page do Pátio com uma etiqueta QR de item'
+        }
+      }
+    ],
+    shotsLabel: {
+      en: 'Screens from the public demo',
+      'pt-BR': 'Telas da demo pública'
     }
-  ]
-}
+  },
+  {
+    id: 'roteiro',
+    name: { en: 'Roteiro do grupo', 'pt-BR': 'Roteiro do grupo' },
+    repo: 'https://github.com/rodrigoeduardo/roteiro-do-grupo',
+    summary: {
+      en: 'Trip planner for a group of friends. Everyone rates how much they want to go to each place, the app splits the group into subgroups per day and period, and anyone can lock an activity in.',
+      'pt-BR':
+        'Planejador de viagem para um grupo de amigos. Cada um diz o quanto quer ir a cada lugar, o app divide o grupo em subgrupos por dia e período, e qualquer um confirma uma atividade.'
+    },
+    status: {
+      en: 'Built for six friends in Europe, Dec 2026 – Jan 2027',
+      'pt-BR': 'Feito para seis amigos na Europa, dez/2026 – jan/2027'
+    },
+    live: false,
+    facts: [
+      {
+        en: 'Four interest levels per person, from no interest to non-negotiable',
+        'pt-BR':
+          'Quatro níveis de interesse por pessoa, de sem interesse a inegociável'
+      },
+      {
+        en: 'Subgroups per day and period: morning, afternoon, evening',
+        'pt-BR': 'Subgrupos por dia e período: manhã, tarde e noite'
+      },
+      {
+        en: 'Activities go from idea to planning to confirmed',
+        'pt-BR': 'Atividades vão de ideia a em planejamento a confirmada'
+      },
+      {
+        en: 'Map first, real-time sync, installable as a PWA',
+        'pt-BR':
+          'Mapa em primeiro lugar, sincronia em tempo real, instalável como PWA'
+      },
+      {
+        en: 'No login: the group joins by a secret link',
+        'pt-BR': 'Sem login: o grupo entra por um link secreto'
+      }
+    ],
+    stack: [
+      { name: 'React + Vite', role: { en: 'PWA', 'pt-BR': 'PWA' } },
+      {
+        name: 'Supabase',
+        role: { en: 'Postgres + Realtime', 'pt-BR': 'Postgres + Realtime' }
+      },
+      {
+        name: 'Google Maps',
+        role: { en: 'map + Places', 'pt-BR': 'mapa + Places' }
+      },
+      { name: 'Vitest', role: { en: 'tests', 'pt-BR': 'testes' } },
+      {
+        name: 'pgTAP',
+        role: { en: 'database tests', 'pt-BR': 'testes do banco' }
+      },
+      { name: 'Vercel', role: { en: 'hosting', 'pt-BR': 'hospedagem' } }
+    ],
+    // The app is pt-BR only, so the screens are too.
+    shotsLabel: {
+      en: 'Screens with fictional data (app in Portuguese)',
+      'pt-BR': 'Telas com dados fictícios'
+    },
+    shots: [
+      {
+        src: '/assets/projects/roteiro-planejar.webp',
+        alt: {
+          en: 'Planning one day in Paris: the group splits into subgroups per period, next to the map',
+          'pt-BR':
+            'Planejamento de um dia em Paris: o grupo se divide em subgrupos por período, ao lado do mapa'
+        }
+      },
+      {
+        src: '/assets/projects/roteiro-pendentes.webp',
+        alt: {
+          en: 'Pending: one place at a time, with photo and the four interest levels as buttons',
+          'pt-BR':
+            'Pendentes: um lugar por vez, com foto e os quatro níveis de interesse como botões'
+        }
+      },
+      {
+        src: '/assets/projects/roteiro-logistica.webp',
+        alt: {
+          en: 'Logistics: timeline of lodging and travel legs, with a warning for nights without lodging',
+          'pt-BR':
+            'Logística: linha do tempo de hospedagens e trechos, com aviso de noites sem hospedagem'
+        }
+      }
+    ]
+  }
+]
 
 export const projects: Project[] = [
   {
@@ -300,6 +427,18 @@ export const projects: Project[] = [
     },
     repo: 'https://github.com/rodrigoeduardo/yard-management-system',
     stack: ['Next.js', 'Supabase', 'Drizzle', 'zxing']
+  },
+  {
+    id: 'roteiro',
+    name: 'Roteiro do grupo',
+    context: {
+      en: 'Group trip planner with subgroups per period',
+      'pt-BR': 'Roteiro de viagem em grupo com subgrupos por período'
+    },
+    period: '2026',
+    status: 'open-source',
+    repo: 'https://github.com/rodrigoeduardo/roteiro-do-grupo',
+    stack: ['React', 'Supabase', 'Google Maps']
   },
   {
     id: 'estoqui',
