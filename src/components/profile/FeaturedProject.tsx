@@ -23,13 +23,11 @@ export function FeaturedProject() {
     setActive(0)
   }
 
-  // Without a demo, the source becomes the main action.
-  const primary = project.demo
-    ? { href: project.demo[locale], label: t('featured.demo') }
-    : { href: project.repo, label: t('featured.code') }
-  const secondary = [
+  // The first available link is the main action: demo, then site, then source.
+  const [primary, ...secondary] = [
+    project.demo && { href: project.demo[locale], label: t('featured.demo') },
     project.site && { href: project.site[locale], label: t('featured.site') },
-    project.demo && { href: project.repo, label: t('featured.code') }
+    project.repo && { href: project.repo, label: t('featured.code') }
   ].filter(link => !!link)
 
   return (
