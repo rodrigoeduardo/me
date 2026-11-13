@@ -47,3 +47,6 @@ payload.db
 payload.db-journal
 
 .mcp.json
+# tool artifacts
+.playwright-mcp/
+.impeccable/review/
