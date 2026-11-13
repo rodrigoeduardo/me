@@ -23,13 +23,11 @@ export function FeaturedProject() {
     setActive(0)
   }
 
-  // Without a demo, the source becomes the main action.
-  const primary = project.demo
-    ? { href: project.demo[locale], label: t('featured.demo') }
-    : { href: project.repo, label: t('featured.code') }
-  const secondary = [
+  // The first available link is the main action: demo, then site, then source.
+  const [primary, ...secondary] = [
+    project.demo && { href: project.demo[locale], label: t('featured.demo') },
     project.site && { href: project.site[locale], label: t('featured.site') },
-    project.demo && { href: project.repo, label: t('featured.code') }
+    project.repo && { href: project.repo, label: t('featured.code') }
   ].filter(link => !!link)
 
   return (
@@ -58,15 +56,17 @@ export function FeaturedProject() {
       }
     >
       <div className='grid lg:grid-cols-[1fr_260px]'>
-        <div className='bg-panel p-3'>
-          <div className='relative aspect-[16/10] bg-panel'>
+        {/* When the text column runs taller, the main shot grows to fill it
+            instead of leaving an empty band under the thumbnails. */}
+        <div className='bg-panel p-3 flex flex-col'>
+          <div className='relative aspect-[16/10] lg:flex-1 bg-panel'>
             <Image
               key={shotSrc}
               src={shotSrc}
               alt={shot.alt[locale]}
               fill
               sizes='(min-width: 1024px) 560px, 100vw'
-              className='object-cover object-top'
+              className='object-cover object-left-top'
               priority={page === 0 && active === 0}
             />
           </div>

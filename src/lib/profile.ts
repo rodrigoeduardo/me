@@ -1,7 +1,7 @@
 import type { Locale } from './i18n'
 
 // Every fact here comes from the CV (public/assets/cvs) or the project repos
-// (YMS, Roteiro do grupo).
+// (YMS, Bonde) and their live sites.
 // Do not add numbers or claims that are not in those sources.
 
 export type Localized = Record<Locale, string>
@@ -41,7 +41,7 @@ export interface FeaturedShot {
 export interface FeaturedProject {
   id: string
   name: Localized
-  repo: string
+  repo?: string
   site?: Localized
   demo?: Localized
   summary: Localized
@@ -323,19 +323,26 @@ export const featuredProjects: FeaturedProject[] = [
     }
   },
   {
-    id: 'roteiro',
-    name: { en: 'Roteiro do grupo', 'pt-BR': 'Roteiro do grupo' },
-    repo: 'https://github.com/rodrigoeduardo/roteiro-do-grupo',
+    id: 'bonde',
+    name: { en: 'Bonde', 'pt-BR': 'Bonde' },
+    site: {
+      en: 'https://bondetrip.com',
+      'pt-BR': 'https://bondetrip.com'
+    },
+    demo: {
+      en: 'https://bondetrip.com/exemplo',
+      'pt-BR': 'https://bondetrip.com/exemplo'
+    },
     summary: {
-      en: 'Trip planner for a group of friends. Everyone rates how much they want to go to each place, the app splits the group into subgroups per day and period, and anyone can lock an activity in.',
+      en: 'Trip planner for groups of friends. Everyone rates how much they want to go to each place, the app shows who is likely to go with whom per day and period, and anyone can lock an activity in. Started as the plan for six friends travelling through Europe; now free for any group.',
       'pt-BR':
-        'Planejador de viagem para um grupo de amigos. Cada um diz o quanto quer ir a cada lugar, o app divide o grupo em subgrupos por dia e período, e qualquer um confirma uma atividade.'
+        'Planejador de viagem para grupos de amigos. Cada um diz o quanto quer ir a cada lugar, o app mostra quem deve ir com quem em cada dia e período, e qualquer um confirma uma atividade. Nasceu como o roteiro de seis amigos pela Europa; agora é grátis para qualquer grupo.'
     },
     status: {
-      en: 'Built for six friends in Europe, Dec 2026 – Jan 2027',
-      'pt-BR': 'Feito para seis amigos na Europa, dez/2026 – jan/2027'
+      en: 'In production at bondetrip.com',
+      'pt-BR': 'Em produção em bondetrip.com'
     },
-    live: false,
+    live: true,
     facts: [
       {
         en: 'Four interest levels per person, from no interest to non-negotiable',
@@ -343,8 +350,8 @@ export const featuredProjects: FeaturedProject[] = [
           'Quatro níveis de interesse por pessoa, de sem interesse a inegociável'
       },
       {
-        en: 'Subgroups per day and period: morning, afternoon, evening',
-        'pt-BR': 'Subgrupos por dia e período: manhã, tarde e noite'
+        en: 'Likely subgroups per day and period: morning, afternoon, evening',
+        'pt-BR': 'Subgrupos prováveis por dia e período: manhã, tarde e noite'
       },
       {
         en: 'Activities go from idea to planning to confirmed',
@@ -356,8 +363,9 @@ export const featuredProjects: FeaturedProject[] = [
           'Mapa em primeiro lugar, sincronia em tempo real, instalável como PWA'
       },
       {
-        en: 'No login: the group joins by a secret link',
-        'pt-BR': 'Sem login: o grupo entra por um link secreto'
+        en: 'Only the trip creator signs in; friends join by link, no account',
+        'pt-BR':
+          'Só quem cria a viagem entra com conta; os amigos entram pelo link, sem conta'
       }
     ],
     stack: [
@@ -375,24 +383,27 @@ export const featuredProjects: FeaturedProject[] = [
         name: 'pgTAP',
         role: { en: 'database tests', 'pt-BR': 'testes do banco' }
       },
-      { name: 'Vercel', role: { en: 'hosting', 'pt-BR': 'hospedagem' } }
+      {
+        name: 'Docker + Dokploy',
+        role: { en: 'hosting', 'pt-BR': 'hospedagem' }
+      }
     ],
     // The app is pt-BR only, so the screens are too.
     shotsLabel: {
-      en: 'Screens with fictional data (app in Portuguese)',
-      'pt-BR': 'Telas com dados fictícios'
+      en: 'Screens from the public example (app in Portuguese)',
+      'pt-BR': 'Telas do exemplo público'
     },
     shots: [
       {
-        src: '/assets/projects/roteiro-planejar.webp',
+        src: '/assets/projects/bonde-planejar.webp',
         alt: {
-          en: 'Planning one day in Paris: the group splits into subgroups per period, next to the map',
+          en: 'Planning one day in Rio: the group splits into subgroups per period, next to the map',
           'pt-BR':
-            'Planejamento de um dia em Paris: o grupo se divide em subgrupos por período, ao lado do mapa'
+            'Planejamento de um dia no Rio: o grupo se divide em subgrupos por período, ao lado do mapa'
         }
       },
       {
-        src: '/assets/projects/roteiro-pendentes.webp',
+        src: '/assets/projects/bonde-pendentes.webp',
         alt: {
           en: 'Pending: one place at a time, with photo and the four interest levels as buttons',
           'pt-BR':
@@ -400,11 +411,11 @@ export const featuredProjects: FeaturedProject[] = [
         }
       },
       {
-        src: '/assets/projects/roteiro-logistica.webp',
+        src: '/assets/projects/bonde-landing.webp',
         alt: {
-          en: 'Logistics: timeline of lodging and travel legs, with a warning for nights without lodging',
+          en: 'Bonde landing page: everyone marks what they want to do, the app shows who goes with whom',
           'pt-BR':
-            'Logística: linha do tempo de hospedagens e trechos, com aviso de noites sem hospedagem'
+            'Landing page do Bonde: cada um marca o que quer fazer, o app mostra quem vai com quem'
         }
       }
     ]
@@ -429,15 +440,15 @@ export const projects: Project[] = [
     stack: ['Next.js', 'Supabase', 'Drizzle', 'zxing']
   },
   {
-    id: 'roteiro',
-    name: 'Roteiro do grupo',
+    id: 'bonde',
+    name: 'Bonde',
     context: {
-      en: 'Group trip planner with subgroups per period',
-      'pt-BR': 'Roteiro de viagem em grupo com subgrupos por período'
+      en: 'Group trip planner: who goes with whom',
+      'pt-BR': 'Viagem em grupo: quem vai com quem'
     },
     period: '2026',
-    status: 'open-source',
-    repo: 'https://github.com/rodrigoeduardo/roteiro-do-grupo',
+    status: 'live',
+    url: 'https://bondetrip.com',
     stack: ['React', 'Supabase', 'Google Maps']
   },
   {
