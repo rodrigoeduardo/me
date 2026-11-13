@@ -56,15 +56,17 @@ export function FeaturedProject() {
       }
     >
       <div className='grid lg:grid-cols-[1fr_260px]'>
-        <div className='bg-panel p-3'>
-          <div className='relative aspect-[16/10] bg-panel'>
+        {/* When the text column runs taller, the main shot grows to fill it
+            instead of leaving an empty band under the thumbnails. */}
+        <div className='bg-panel p-3 flex flex-col'>
+          <div className='relative aspect-[16/10] lg:flex-1 bg-panel'>
             <Image
               key={shotSrc}
               src={shotSrc}
               alt={shot.alt[locale]}
               fill
               sizes='(min-width: 1024px) 560px, 100vw'
-              className='object-cover object-top'
+              className='object-cover object-left-top'
               priority={page === 0 && active === 0}
             />
           </div>
