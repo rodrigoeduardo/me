@@ -1,93 +1,59 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import useSWR from 'swr'
-import { useLanguage } from '@/lib/i18n'
-import { fetcher } from '@/lib/fetcher'
 import { Box } from '@/components/profile/Box'
+import type { Category, PostSummary } from '@/lib/posts'
 
-interface Category {
-  id: string
-  name: string
-  slug: string
+export interface PostListItem extends PostSummary {
+  href: string
+  // Formatted on the server so the markup doesn't depend on the browser's
+  // time zone.
+  dateLabel: string | null
 }
 
-interface PostsResponse {
-  docs: Array<{
-    title: string
-    slug: string
-    excerpt?: string | null
-    coverImage?: {
-      url: string
-      alt?: string
-    } | null
-    category?: {
-      name: string
-      slug: string
-    } | null
-    publishedAt?: string | null
-  }>
+export interface PostsPageLabels {
+  title: string
+  categories: string
+  all: string
+  empty: string
+  error: string
+  uncategorized: string
 }
 
-interface CategoriesResponse {
-  docs: Category[]
+interface PostsPageContentProps {
+  // null when the CMS could not be reached.
+  posts: PostListItem[] | null
+  categories: Category[]
+  labels: PostsPageLabels
 }
 
-function normalizeImageUrl(url: string): string {
-  // Convert absolute localhost URLs to relative paths for Next.js Image
-  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
-  if (url.startsWith(serverUrl)) {
-    return url.slice(serverUrl.length)
-  }
-  return url
-}
-
-export function PostsPageContent() {
-  const { t, locale } = useLanguage()
+export function PostsPageContent({
+  posts,
+  categories,
+  labels
+}: PostsPageContentProps) {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
 
-  const {
-    data: postsData,
-    error,
-    isLoading: postsLoading
-  } = useSWR<PostsResponse>(
-    `/api/posts?where[status][equals]=published&sort=-publishedAt&limit=100&locale=${locale}`,
-    fetcher,
-    { errorRetryCount: 2 }
+  const filteredPosts = (posts ?? []).filter(
+    post => !selectedCategory || post.category?.slug === selectedCategory
   )
 
-  const { data: categoriesData, isLoading: categoriesLoading } =
-    useSWR<CategoriesResponse>(
-      `/api/categories?limit=100&locale=${locale}`,
-      fetcher,
-      { errorRetryCount: 2 }
-    )
-
-  const posts = useMemo(() => postsData?.docs ?? [], [postsData])
-  const categories = categoriesData?.docs || []
-  const loading = postsLoading || categoriesLoading
-
-  const filteredPosts = useMemo(() => {
-    if (!selectedCategory) return posts
-    return posts.filter(post => post.category?.slug === selectedCategory)
-  }, [posts, selectedCategory])
-
   const filters = [
-    { slug: null, name: t('posts.all') },
+    { slug: null, name: labels.all },
     ...categories.map(c => ({ slug: c.slug, name: c.name }))
   ]
 
   return (
     <div className='max-w-[860px] mx-auto px-3 sm:px-4 py-4'>
       <Box
-        title={<span className='text-[20px]'>{t('posts.title')}</span>}
-        aside={loading ? null : `${filteredPosts.length}`}
+        title={<span className='text-[20px]'>{labels.title}</span>}
+        aside={posts ? `${filteredPosts.length}` : null}
       >
         <div
           role='group'
-          aria-label={t('posts.categories')}
+          aria-label={labels.categories}
           className='flex overflow-x-auto border-b border-rule'
         >
           {filters.map(filter => {
@@ -99,7 +65,9 @@ export function PostsPageContent() {
                 aria-pressed={active}
                 onClick={() => setSelectedCategory(filter.slug)}
                 className={`relative shrink-0 px-4 h-10 text-[13px] font-bold whitespace-nowrap transition-colors ${
-                  active ? 'text-foreground' : 'text-muted hover:text-foreground'
+                  active
+                    ? 'text-foreground'
+                    : 'text-muted hover:text-foreground'
                 }`}
               >
                 {filter.name}
@@ -114,38 +82,29 @@ export function PostsPageContent() {
           })}
         </div>
 
-        {loading ? (
-          <ul aria-busy='true'>
-            {[0, 1, 2, 3].map(i => (
-              <li key={i} className='flex gap-3 px-3 py-3 border-b border-rule'>
-                <div className='w-24 h-14 bg-track animate-pulse' />
-                <div className='flex-1 space-y-2 pt-1'>
-                  <div className='h-3 w-2/3 bg-track animate-pulse' />
-                  <div className='h-3 w-1/3 bg-track animate-pulse' />
-                </div>
-              </li>
-            ))}
-          </ul>
-        ) : error ? (
+        {!posts ? (
           <p className='px-3 py-10 text-center text-[13px] text-muted'>
-            {t('posts.error')}
+            {labels.error}
           </p>
         ) : filteredPosts.length === 0 ? (
           <p className='px-3 py-10 text-center text-[13px] text-muted'>
-            {t('posts.empty')}
+            {labels.empty}
           </p>
         ) : (
           <ul>
             {filteredPosts.map(post => (
-              <li key={post.slug} className='border-b border-rule last:border-b-0'>
+              <li
+                key={post.slug}
+                className='border-b border-rule last:border-b-0'
+              >
                 <Link
-                  href={`/posts/${post.slug}`}
+                  href={post.href}
                   className='flex gap-3 px-3 py-3 hover:bg-surface-head'
                 >
                   <div className='relative w-24 h-14 shrink-0 bg-panel overflow-hidden'>
                     {post.coverImage && (
                       <Image
-                        src={normalizeImageUrl(post.coverImage.url)}
+                        src={post.coverImage.url}
                         alt=''
                         fill
                         sizes='96px'
@@ -164,16 +123,13 @@ export function PostsPageContent() {
                     )}
                     <p className='mt-1 text-xs text-muted'>
                       <span className='text-link'>
-                        {post.category?.name ?? t('posts.uncategorized')}
+                        {post.category?.name ?? labels.uncategorized}
                       </span>
-                      {post.publishedAt && (
+                      {post.publishedAt && post.dateLabel && (
                         <>
                           {' · '}
                           <time dateTime={post.publishedAt}>
-                            {new Date(post.publishedAt).toLocaleDateString(
-                              locale,
-                              { day: 'numeric', month: 'short', year: 'numeric' }
-                            )}
+                            {post.dateLabel}
                           </time>
                         </>
                       )}

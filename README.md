@@ -50,18 +50,21 @@ pnpm format   # Prettier
 
 ```
 src/
-  app/(site)/      public site: home, posts list, post page
+  app/(site)/[locale]/  public site: home, posts list, post page (en at /, pt-BR at /pt-BR)
+  app/sitemap.ts, robots.ts, llms.txt/  crawler and answer-engine files
+  proxy.ts         maps unprefixed URLs to the en locale
   app/(payload)/   Payload admin and API routes
   collections/     Payload collections: Posts, Categories, Media, Users
   components/      UI; the home page lives in components/profile/
   lib/profile.ts   career facts: teams, projects, stack, milestones
   lib/github.ts    GitHub activity and private contribution count
-  lib/i18n.tsx     en / pt-BR dictionaries
+  lib/i18n.ts      en / pt-BR dictionaries (server only)
+  lib/locales.ts   locale list and URL helpers
 public/assets/     CVs and project screenshots
 payload.config.ts  Payload configuration
 ```
 
-To update career content (technologies, projects, experience), edit `src/lib/profile.ts`. UI strings live in `src/lib/i18n.tsx`.
+To update career content (technologies, projects, experience), edit `src/lib/profile.ts`. UI strings live in `src/lib/i18n.ts`.
 
 ## Deployment
 

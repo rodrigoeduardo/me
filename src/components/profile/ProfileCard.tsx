@@ -1,8 +1,7 @@
-'use client'
-
 import Image from 'next/image'
 import { Mail } from 'lucide-react'
-import { useLanguage } from '@/lib/i18n'
+import { getTranslator } from '@/lib/i18n'
+import type { Locale } from '@/lib/locales'
 import { profile, shippedProducts, teams } from '@/lib/profile'
 import { GitHubIcon } from '@/components/icons/GitHubIcon'
 import { LinkedInIcon } from '@/components/icons/LinkedInIcon'
@@ -11,8 +10,12 @@ function shortYear(date: string) {
   return `'${date.slice(2, 4)}`
 }
 
-export function ProfileCard() {
-  const { t, locale } = useLanguage()
+interface ProfileCardProps {
+  locale: Locale
+}
+
+export function ProfileCard({ locale }: ProfileCardProps) {
+  const t = getTranslator(locale)
 
   const rows = [
     { label: t('profile.role'), value: profile.role[locale] },

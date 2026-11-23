@@ -1,10 +1,6 @@
-'use client'
-
-import Link from 'next/link'
-import useSWR from 'swr'
 import { ArrowUpRight, Plus } from 'lucide-react'
-import { useLanguage } from '@/lib/i18n'
-import { fetcher } from '@/lib/fetcher'
+import { getTranslator, type Translate } from '@/lib/i18n'
+import type { Locale } from '@/lib/locales'
 import {
   achievements,
   areaYears,
@@ -34,14 +30,16 @@ const STATUS_TEXT: Record<ProjectStatus, string> = {
   archived: 'text-muted'
 }
 
-function useStatusLabel() {
-  const { t } = useLanguage()
-  return (status: ProjectStatus) =>
-    status === 'live'
-      ? t('projects.live')
-      : status === 'open-source'
-        ? t('projects.openSource')
-        : t('projects.archived')
+function statusLabel(t: Translate, status: ProjectStatus) {
+  return status === 'live'
+    ? t('projects.live')
+    : status === 'open-source'
+      ? t('projects.openSource')
+      : t('projects.archived')
+}
+
+interface PanelProps {
+  locale: Locale
 }
 
 function formatMonth(date: string, locale: string) {
@@ -52,8 +50,8 @@ function formatMonth(date: string, locale: string) {
   })
 }
 
-export function StatsPanel() {
-  const { t } = useLanguage()
+export function StatsPanel({ locale }: PanelProps) {
+  const t = getTranslator(locale)
 
   return (
     <Box id='stats' title={t('stats.title')} aside={t('stats.subtitle')}>
@@ -87,9 +85,8 @@ export function StatsPanel() {
   )
 }
 
-export function RecentProjects() {
-  const { t, locale } = useLanguage()
-  const statusLabel = useStatusLabel()
+export function RecentProjects({ locale }: PanelProps) {
+  const t = getTranslator(locale)
 
   return (
     <Box title={t('projects.recent')}>
@@ -103,7 +100,9 @@ export function RecentProjects() {
               <p className='text-[13px] font-bold truncate'>
                 {project.url || project.repo ? (
                   <a
-                    href={project.url ? pick(project.url, locale) : project.repo}
+                    href={
+                      project.url ? pick(project.url, locale) : project.repo
+                    }
                     target='_blank'
                     rel='noopener noreferrer'
                     className='hover:text-link'
@@ -120,8 +119,10 @@ export function RecentProjects() {
             </div>
             <div className='text-right shrink-0'>
               <p className='text-[13px] font-bold'>{project.period}</p>
-              <p className={`text-xs font-semibold ${STATUS_TEXT[project.status]}`}>
-                {statusLabel(project.status)}
+              <p
+                className={`text-xs font-semibold ${STATUS_TEXT[project.status]}`}
+              >
+                {statusLabel(t, project.status)}
               </p>
             </div>
           </li>
@@ -134,8 +135,8 @@ export function RecentProjects() {
   )
 }
 
-export function ExperiencePanel() {
-  const { t, locale } = useLanguage()
+export function ExperiencePanel({ locale }: PanelProps) {
+  const t = getTranslator(locale)
 
   return (
     <Box title={t('tabs.experience')}>
@@ -174,9 +175,8 @@ export function ExperiencePanel() {
   )
 }
 
-export function ProjectsPanel() {
-  const { t, locale } = useLanguage()
-  const statusLabel = useStatusLabel()
+export function ProjectsPanel({ locale }: PanelProps) {
+  const t = getTranslator(locale)
 
   return (
     <Box title={t('tabs.projects')}>
@@ -219,7 +219,7 @@ export function ProjectsPanel() {
                 <td
                   className={`px-3 py-2.5 whitespace-nowrap font-semibold ${STATUS_TEXT[project.status]}`}
                 >
-                  {statusLabel(project.status)}
+                  {statusLabel(t, project.status)}
                 </td>
                 <td className='px-3 py-2.5'>
                   <div className='flex justify-end gap-1.5'>
@@ -256,8 +256,8 @@ export function ProjectsPanel() {
   )
 }
 
-export function AchievementsPanel() {
-  const { t, locale } = useLanguage()
+export function AchievementsPanel({ locale }: PanelProps) {
+  const t = getTranslator(locale)
 
   return (
     <Box title={t('tabs.achievements')}>
@@ -277,7 +277,10 @@ export function AchievementsPanel() {
         </thead>
         <tbody>
           {achievements.map(item => (
-            <tr key={item.title.en} className='border-b border-rule last:border-b-0'>
+            <tr
+              key={item.title.en}
+              className='border-b border-rule last:border-b-0'
+            >
               <td className='px-3 py-2.5 font-bold whitespace-nowrap'>
                 {item.year}
               </td>
@@ -293,8 +296,8 @@ export function AchievementsPanel() {
   )
 }
 
-export function StackPanel() {
-  const { t } = useLanguage()
+export function StackPanel({ locale }: PanelProps) {
+  const t = getTranslator(locale)
 
   return (
     <Box
@@ -343,9 +346,7 @@ export function StackPanel() {
                     <span className='inline-flex items-center gap-2'>
                       <span
                         className={`w-2.5 h-2.5 shrink-0 ${
-                          tech.current
-                            ? 'bg-link-fill'
-                            : 'border border-idle'
+                          tech.current ? 'bg-link-fill' : 'border border-idle'
                         }`}
                         aria-hidden='true'
                       />
@@ -377,72 +378,8 @@ export function StackPanel() {
   )
 }
 
-interface PostsResponse {
-  docs: Array<{
-    title: string
-    slug: string
-    publishedAt?: string | null
-    category?: { name: string } | null
-  }>
-}
-
-export function PostsPanel({ limit = 6 }: { limit?: number }) {
-  const { t, locale } = useLanguage()
-  const { data, error, isLoading } = useSWR<PostsResponse>(
-    `/api/posts?where[status][equals]=published&limit=${limit}&sort=-publishedAt&locale=${locale}`,
-    fetcher,
-    { errorRetryCount: 2 }
-  )
-  const posts = data?.docs ?? []
-
-  return (
-    <Box title={t('posts.latest')}>
-      {isLoading ? (
-        <ul aria-busy='true'>
-          {[0, 1, 2].map(i => (
-            <li key={i} className='px-3 py-3 border-b border-rule'>
-              <div className='h-3 w-2/3 bg-track animate-pulse' />
-            </li>
-          ))}
-        </ul>
-      ) : error ? (
-        <p className='px-3 py-6 text-[13px] text-muted'>{t('posts.error')}</p>
-      ) : posts.length === 0 ? (
-        <p className='px-3 py-6 text-[13px] text-muted'>{t('posts.empty')}</p>
-      ) : (
-        <ul>
-          {posts.map(post => (
-            <li key={post.slug} className='border-b border-rule'>
-              <Link
-                href={`/posts/${post.slug}`}
-                className='flex items-baseline justify-between gap-3 px-3 py-2.5 text-[13px] hover:bg-surface-head'
-              >
-                <span className='font-semibold'>{post.title}</span>
-                {post.publishedAt && (
-                  <time
-                    dateTime={post.publishedAt}
-                    className='text-xs text-muted shrink-0'
-                  >
-                    {new Date(post.publishedAt).toLocaleDateString(locale, {
-                      day: 'numeric',
-                      month: 'short'
-                    })}
-                  </time>
-                )}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      )}
-      <div className='pt-3'>
-        <BoxButton href='/posts'>{t('posts.allPosts')}</BoxButton>
-      </div>
-    </Box>
-  )
-}
-
-export function FaqPanel() {
-  const { t, locale } = useLanguage()
+export function FaqPanel({ locale }: PanelProps) {
+  const t = getTranslator(locale)
 
   return (
     <Box title={t('faq.title')}>

@@ -31,7 +31,7 @@ All source lives in `src/`; paths below are relative to it (config files like `p
 
 ### Key Patterns
 
-- **i18n**: Client-side via `lib/i18n.tsx` React Context (en/pt-BR)
+- **i18n**: Locale in the URL: `app/(site)/[locale]`, English unprefixed (`src/proxy.ts` rewrites to `/en`), pt-BR under `/pt-BR`. Server components call `getTranslator(locale)` from `lib/i18n.ts`; client components get resolved strings as props and must not import `lib/i18n.ts` or `lib/profile.ts`
 - **Theming**: CSS variables in `globals.css`, dark class on `<html>`
 - **Fonts**: Open Sans (only face, via next/font). Visual system in `DESIGN.md`; product context in `PRODUCT.md`
 
@@ -44,7 +44,7 @@ All source lives in `src/`; paths below are relative to it (config files like `p
 
 - Prettier (`.prettierrc`): no semicolons, single quotes (JSX too), no trailing commas, `arrowParens: avoid`.
 - Components: PascalCase files, named exports (`export function Hero()`), props typed as `XxxProps` interface.
-- `'use client'` only where interactivity is needed. Post page fetches server-side; home and posts list fetch client-side with SWR.
+- `'use client'` only where interactivity is needed (tabs, featured carousel, posts filter, header toggles). Posts list and post page fetch server-side over the REST API; only the home posts panel fetches client-side with SWR.
 - Browser-only components (e.g. `Particles`, `ThemeToggle`) load via `next/dynamic` with `ssr: false`.
 - Tailwind utility classes inline; colors via CSS variables defined in `globals.css` (see `DESIGN.md`).
 

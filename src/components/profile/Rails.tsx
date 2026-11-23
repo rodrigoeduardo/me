@@ -1,6 +1,5 @@
-'use client'
-
-import { useLanguage } from '@/lib/i18n'
+import { getTranslator } from '@/lib/i18n'
+import type { Locale } from '@/lib/locales'
 import {
   achievements,
   education,
@@ -16,8 +15,12 @@ const GAME_JAMS = achievements.filter(item => /jam/i.test(item.context))
 
 // Left rail: the current stack as a ranking, then education, languages
 // and, last, game jams.
-export function LeftRail() {
-  const { t, locale } = useLanguage()
+interface LeftRailProps {
+  locale: Locale
+}
+
+export function LeftRail({ locale }: LeftRailProps) {
+  const t = getTranslator(locale)
 
   return (
     <aside className='text-[13px]'>
@@ -83,6 +86,7 @@ export function LeftRail() {
 }
 
 interface RightRailProps {
+  locale: Locale
   activity: RepoActivity[]
   privateContributions: number | null
 }
@@ -97,10 +101,11 @@ function relativeDays(date: string, locale: string) {
 
 // Right rail: live public GitHub activity, newest push first.
 export function RightRail({
+  locale,
   activity,
   privateContributions
 }: RightRailProps) {
-  const { t, locale } = useLanguage()
+  const t = getTranslator(locale)
 
   return (
     <aside className='text-[13px]'>
@@ -120,10 +125,7 @@ export function RightRail({
                 className='flex items-baseline justify-between gap-2 px-2.5 py-1.5 border-l-2 border-l-link hover:bg-surface-head'
               >
                 <span className='text-link truncate'>{repo.name}</span>
-                <span
-                  className='text-xs text-muted shrink-0'
-                  suppressHydrationWarning
-                >
+                <span className='text-xs text-muted shrink-0'>
                   {relativeDays(repo.pushedAt, locale)}
                 </span>
               </a>

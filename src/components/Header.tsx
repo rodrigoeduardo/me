@@ -1,21 +1,15 @@
-'use client'
-
 import Link from 'next/link'
-import dynamic from 'next/dynamic'
 import { Download } from 'lucide-react'
-import { LanguageToggle } from './LanguageToggle'
-import { useLanguage } from '@/lib/i18n'
+import { HeaderActions } from './HeaderActions'
+import { getTranslator } from '@/lib/i18n'
+import { localePath, type Locale } from '@/lib/locales'
 
-const ThemeToggle = dynamic(
-  () => import('@/components/ThemeToggle').then(m => m.ThemeToggle),
-  {
-    ssr: false,
-    loading: () => <div className='w-9 h-9' />
-  }
-)
+interface HeaderProps {
+  locale: Locale
+}
 
-export function Header() {
-  const { t, locale } = useLanguage()
+export function Header({ locale }: HeaderProps) {
+  const t = getTranslator(locale)
 
   const resumeUrl =
     locale === 'pt-BR'
@@ -23,17 +17,17 @@ export function Header() {
       : '/assets/cvs/rodrigoeduardo-cv-en.pdf'
 
   const links = [
-    { href: '/', label: t('nav.overview') },
-    { href: '/#projects', label: t('nav.projects') },
-    { href: '/#experience', label: t('nav.experience') },
-    { href: '/posts', label: t('nav.posts') }
+    { href: localePath(locale, '/'), label: t('nav.overview') },
+    { href: localePath(locale, '/#projects'), label: t('nav.projects') },
+    { href: localePath(locale, '/#experience'), label: t('nav.experience') },
+    { href: localePath(locale, '/posts'), label: t('nav.posts') }
   ]
 
   return (
     <header className='sticky top-0 z-50 bg-surface border-b border-rule'>
       <div className='max-w-[1240px] mx-auto px-3 sm:px-4 h-12 flex items-center gap-4'>
         <Link
-          href='/'
+          href={localePath(locale, '/')}
           className='shrink-0 flex items-center gap-2 font-extrabold text-[15px] tracking-[-0.01em] hover:text-link transition-colors'
         >
           <span
@@ -61,8 +55,14 @@ export function Header() {
         </nav>
 
         <div className='shrink-0 flex items-center gap-1'>
-          <ThemeToggle />
-          <LanguageToggle />
+          <HeaderActions
+            locale={locale}
+            themeLabels={{
+              toLight: t('theme.toLight'),
+              toDark: t('theme.toDark')
+            }}
+            languageLabel={t('lang.switch')}
+          />
           <a
             href={resumeUrl}
             target='_blank'

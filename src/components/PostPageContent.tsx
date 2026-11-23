@@ -1,34 +1,9 @@
-'use client'
-
 import Link from 'next/link'
 import Image from 'next/image'
 import { ArrowLeft } from 'lucide-react'
-import { useLanguage } from '@/lib/i18n'
-
-function normalizeImageUrl(url: string): string {
-  // Convert absolute localhost URLs to relative paths for Next.js Image
-  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'
-  if (url.startsWith(serverUrl)) {
-    return url.slice(serverUrl.length)
-  }
-  return url
-}
-
-interface Post {
-  title: string
-  slug: string
-  excerpt?: string | null
-  content?: any
-  coverImage?: {
-    url: string
-    alt?: string
-  } | null
-  category?: {
-    name: string
-    slug: string
-  } | null
-  publishedAt?: string | null
-}
+import { getTranslator } from '@/lib/i18n'
+import { localePath, type Locale } from '@/lib/locales'
+import { formatPostDate, normalizeImageUrl, type Post } from '@/lib/posts'
 
 function RichTextRenderer({ content }: { content: any }) {
   if (!content?.root?.children) {
@@ -148,22 +123,21 @@ function RichTextRenderer({ content }: { content: any }) {
   )
 }
 
-export { type Post }
+interface PostPageContentProps {
+  post: Post
+  locale: Locale
+}
 
-export function PostPageContent({ post }: { post: Post }) {
-  const { t, locale } = useLanguage()
+export function PostPageContent({ post, locale }: PostPageContentProps) {
+  const t = getTranslator(locale)
   const formattedDate = post.publishedAt
-    ? new Date(post.publishedAt).toLocaleDateString(locale, {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })
+    ? formatPostDate(post.publishedAt, locale, 'long')
     : null
 
   return (
     <div className='max-w-[860px] mx-auto px-3 sm:px-4 py-4'>
       <Link
-        href='/posts'
+        href={localePath(locale, '/posts')}
         className='inline-flex items-center gap-1.5 mb-3 text-[13px] text-link hover:underline'
       >
         <ArrowLeft size={14} aria-hidden='true' />

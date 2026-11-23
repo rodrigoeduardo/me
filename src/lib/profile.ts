@@ -1,4 +1,4 @@
-import type { Locale } from './i18n'
+import type { Locale } from './locales'
 
 // Every fact here comes from the CV (public/assets/cvs) or the project repos
 // (YMS, Bonde) and their live sites.
