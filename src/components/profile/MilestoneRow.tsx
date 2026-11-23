@@ -1,5 +1,3 @@
-'use client'
-
 import {
   Bot,
   Building2,
@@ -11,7 +9,8 @@ import {
   Warehouse,
   type LucideIcon
 } from 'lucide-react'
-import { useLanguage } from '@/lib/i18n'
+import { getTranslator } from '@/lib/i18n'
+import type { Locale } from '@/lib/locales'
 import { milestones, type Milestone } from '@/lib/profile'
 
 const ICONS: Record<Milestone['icon'], LucideIcon> = {
@@ -26,8 +25,12 @@ const ICONS: Record<Milestone['icon'], LucideIcon> = {
 }
 
 // The trophy shelf under the profile: one cell per milestone, year as a badge.
-export function MilestoneRow() {
-  const { t, locale } = useLanguage()
+interface MilestoneRowProps {
+  locale: Locale
+}
+
+export function MilestoneRow({ locale }: MilestoneRowProps) {
+  const t = getTranslator(locale)
 
   return (
     <section

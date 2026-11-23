@@ -1,12 +1,15 @@
-'use client'
-
-import { useLanguage } from '@/lib/i18n'
+import { getTranslator } from '@/lib/i18n'
+import type { Locale } from '@/lib/locales'
 import { profile } from '@/lib/profile'
 
 const currentYear = new Date().getFullYear()
 
-export function Footer() {
-  const { t } = useLanguage()
+interface FooterProps {
+  locale: Locale
+}
+
+export function Footer({ locale }: FooterProps) {
+  const t = getTranslator(locale)
 
   const links = [
     { href: profile.github, label: 'GitHub' },

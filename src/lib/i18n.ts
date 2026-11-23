@@ -1,17 +1,16 @@
-'use client'
-
-import {
-  createContext,
-  useContext,
-  useState,
-  useEffect,
-  type ReactNode
-} from 'react'
-
-export type Locale = 'en' | 'pt-BR'
+// Server-side dictionaries. Only import this from server components: client
+// components get their strings as props, so the dictionaries stay out of the
+// browser bundle.
+import type { Locale } from './locales'
 
 const translations = {
   en: {
+    'meta.title': 'Rodrigo Eduardo | Software Engineer',
+    'meta.description':
+      'Rodrigo Eduardo, software engineer in Natal, Brazil. CTO at Estoqui, previously core engineer at Bitflow Finance. Full stack: React, Next.js, Django, PostgreSQL.',
+    'meta.postsTitle': 'Posts',
+    'meta.postsDescription':
+      'Articles and thoughts about web development, technology, and software engineering.',
     'nav.overview': 'Overview',
     'nav.projects': 'Projects',
     'nav.experience': 'Experience',
@@ -98,9 +97,15 @@ const translations = {
     'footer.rights': 'All rights reserved.',
     'theme.toLight': 'Switch to light mode',
     'theme.toDark': 'Switch to dark mode',
-    'lang.switch': 'Mudar para português'
+    'lang.switch': 'Ler em português'
   },
   'pt-BR': {
+    'meta.title': 'Rodrigo Eduardo | Engenheiro de Software',
+    'meta.description':
+      'Rodrigo Eduardo, engenheiro de software em Natal, Brasil. CTO na Estoqui, antes engenheiro core na Bitflow Finance. Full stack: React, Next.js, Django, PostgreSQL.',
+    'meta.postsTitle': 'Posts',
+    'meta.postsDescription':
+      'Artigos e reflexões sobre desenvolvimento web, tecnologia e engenharia de software.',
     'nav.overview': 'Visão geral',
     'nav.projects': 'Projetos',
     'nav.experience': 'Experiência',
@@ -176,7 +181,8 @@ const translations = {
     'faq.title': 'Perguntas frequentes',
     'posts.title': 'Posts',
     'posts.empty': 'Nenhum post ainda.',
-    'posts.error': 'Não foi possível carregar os posts. Tente de novo em instantes.',
+    'posts.error':
+      'Não foi possível carregar os posts. Tente de novo em instantes.',
     'posts.readMore': 'Leia mais',
     'posts.categories': 'Categorias',
     'posts.all': 'Todos',
@@ -187,66 +193,14 @@ const translations = {
     'footer.rights': 'Todos os direitos reservados.',
     'theme.toLight': 'Mudar para o tema claro',
     'theme.toDark': 'Mudar para o tema escuro',
-    'lang.switch': 'Switch to English'
+    'lang.switch': 'Read in English'
   }
 } as const
 
-type TranslationKey = keyof typeof translations.en
+export type TranslationKey = keyof typeof translations.en
 
-interface LanguageContextType {
-  locale: Locale
-  setLocale: (locale: Locale) => void
-  t: (key: TranslationKey) => string
-}
+export type Translate = (key: TranslationKey) => string
 
-const LanguageContext = createContext<LanguageContextType | null>(null)
-
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>('en')
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    setMounted(true)
-    const stored = localStorage.getItem('locale') as Locale | null
-    if (stored && (stored === 'en' || stored === 'pt-BR')) {
-      setLocaleState(stored)
-    }
-  }, [])
-
-  // Screen readers pick the voice from <html lang>, so keep it in sync.
-  useEffect(() => {
-    document.documentElement.lang = locale
-  }, [locale])
-
-  const setLocale =(newLocale: Locale) => {
-    setLocaleState(newLocale)
-    localStorage.setItem('locale', newLocale)
-  }
-
-  const t = (key: TranslationKey): string => {
-    return translations[locale][key] || key
-  }
-
-  if (!mounted) {
-    return <>{children}</>
-  }
-
-  return (
-    <LanguageContext.Provider value={{ locale, setLocale, t }}>
-      {children}
-    </LanguageContext.Provider>
-  )
-}
-
-export function useLanguage() {
-  const context = useContext(LanguageContext)
-  if (!context) {
-    // Return default values when not in provider (SSR)
-    return {
-      locale: 'en' as Locale,
-      setLocale: () => {},
-      t: (key: TranslationKey) => translations.en[key] || key
-    }
-  }
-  return context
+export function getTranslator(locale: Locale): Translate {
+  return key => translations[locale][key] || key
 }

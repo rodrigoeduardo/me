@@ -1,15 +1,10 @@
 import type { Metadata } from 'next'
+import { siteUrl } from '@/lib/site'
 
+// Titles, descriptions and hreflang alternates are set per locale in
+// (site)/[locale]; this only anchors relative metadata URLs to the origin.
 export const metadata: Metadata = {
-  title: 'Rodrigo Eduardo | Software Engineer',
-  description:
-    'Front-end and full-stack developer passionate about building elegant, performant web experiences with React, Next.js, and TypeScript.',
-  openGraph: {
-    title: 'Rodrigo Eduardo | Software Engineer',
-    description:
-      'Front-end and full-stack developer passionate about building elegant, performant web experiences.',
-    type: 'website'
-  }
+  metadataBase: new URL(siteUrl)
 }
 
 export default function RootLayout({
